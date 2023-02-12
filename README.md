@@ -1,0 +1,2 @@
+# hugoblog
+Blog using hugo
