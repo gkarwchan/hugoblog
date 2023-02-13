@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>SPA routing and how to handle it with Azure Static Web app. | Ghassan Blog</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&hellip;, then you must be using their router to define your client side routing.
+But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SPA routing and how to handle it with Azure Static Web app."/>
+<meta name="twitter:description" content="If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&hellip;, then you must be using their router to define your client side routing.
+But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application."/>
+
+  <meta property="og:title" content="SPA routing and how to handle it with Azure Static Web app." />
+<meta property="og:description" content="If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&hellip;, then you must be using their router to define your client side routing.
+But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/0007_azure_static_webapp_routing/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-08T19:58:31-07:00" />
+<meta property="article:modified_time" content="2023-01-08T19:58:31-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Blog</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/roninro/hugo-theme-puppet/" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/azure-static-web-app/" title="azure static web app">azure static web app</a>
+            
+          </div>
+          <h1>SPA routing and how to handle it with Azure Static Web app.</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Sun, Jan 8, 2023
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&hellip;, then you must be using their router to define your client side routing.<br>
+But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application.</p>
+<p>I am going to explain more on that, and will explain in details why we have an issue, and how other platform fix it.<br>
+But for the people who already know the details about SPA routing and they know the server has to accommodate for SPA routing, and they just need a fix on Azure Static web app, and want a fix for routing, then I am going to describe the solution first, and if you are interested more on knowing how and why, then continue reading this post.</p>
+<h2 id="how-to-fix-it-on-azure-static-web-app">How to fix it on Azure Static Web App:<a class="anchorjs-link" href="#how-to-fix-it-on-azure-static-web-app"></a></h2><p>We fix it by creating a <strong><code>fallback route</code></strong> (which is a url to fall back to, when the server won&rsquo;t recognize a route).<br>
+To create a fallback route in Azure Static Web App, you should add routing rules to your app.<br>
+You can do that by adding a file called <strong><code>staticwebapp.config.json</code></strong> and make that file available in the root of your deployment folder.<br>
+In that file add the following routing rule:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>{
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">&#34;navigationFallback&#34;</span>: {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>      <span style="color:#ff79c6">&#34;rewrite&#34;</span>: <span style="color:#f1fa8c">&#34;index.html&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>      <span style="color:#ff79c6">&#34;exclude&#34;</span>: [<span style="color:#f1fa8c">&#34;/images/*.{png,jpg,gif,ico}&#34;</span>, <span style="color:#f1fa8c">&#34;/*.{css,scss,js}&#34;</span>]
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>}
+</span></span></code></pre></div><p>This will redirect any url to the root <code>index.html</code>.<br>
+And make sure when you deploy your solution to add that file in the deployed package.<br>
+Now we know how to fix it on Azure Statis Web App, but if you want to understand what the problem in more details continue reading.</p>
+<h2 id="what-is-the-problem-with-spa-routing">What is the problem with SPA routing?<a class="anchorjs-link" href="#what-is-the-problem-with-spa-routing"></a></h2><p>SPA routing is happening on the client side, and not communicating back to the server.<br>
+For example, let consider an e-commerce SPA application on the address <code>Https://www.my-ecommerce-site.com</code>.<br>
+And the user navigate on these urls:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Https://www.my-ecommerce-site.com/shirts
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>Https://www.my-ecommerce-site.com/computer
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>Https://www.my-ecommerce-site.com/shopping-carts
+</span></span></code></pre></div><p>All these navigations run in the browser and no communication (except for any API REST calls) to the server.</p>
+<p>But the user want to save a link on his favorite to come back later to it, or send the link to a friend.<br>
+The friend open the link: <code>Https://www.my-ecommerce-site.com/computer</code> from his browser.<br>
+The problem is the server won&rsquo;t recognize the url: <code>/computer</code>.</p>
+<h2 id="how-old-spas-did-use-client-side-routing">How old SPAs did use client side routing?<a class="anchorjs-link" href="#how-old-spas-did-use-client-side-routing"></a></h2><p>Before HTML5 introduce the changes in the <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API" target="_blank">history API</a>, the old SPA applications used hash <strong><code>#</code></strong> in their url to split between the server part of the url and client side of url.<br>
+If you developed a SPA 10 years ago, (I remember my first Angular 1 application 10 years ago), then you used that hash technique to fix the problem.<br>
+So when the user navigate to a client side url, the url will be like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Https://www.my-ecommerce-site.com/#/computer
+</span></span></code></pre></div><p>This type of URL didn&rsquo;t have any issue with the server.
+When the server receive that URL, the server will ignore the part after the hash and resolve only the first part, and then the SPA application will resolve the part after the hash.</p>
+<h2 id="history-api-and-moving-away-from-the-hashed-url">History API and moving away from the hashed URL:<a class="anchorjs-link" href="#history-api-and-moving-away-from-the-hashed-url"></a></h2><p>When HTML 5 came up with changes in the browser capabilities, they added capabilities to manipulate the history of the browser and change the url without navigating back to the server without using the hash technique.<br>
+Beside that, the hash in url were not good for SEO.<br>
+So newer SPA frameworks (React, and Angular newer versions) adopted routing that based on normal url.
+So we can now use a URL like this: <code>Https://www.my-ecommerce-site.com/computer</code>.</p>
+<p>But there was a problem, the server won&rsquo;t recognize the routing url.<br>
+So remember the example of someone share a link with his friend?<br>
+Well, that URL won&rsquo;t be resolvable by the server.</p>
+<h2 id="how-to-fix-non-hash-url-routing-on-the-server">How to fix non-hash URL routing on the server:<a class="anchorjs-link" href="#how-to-fix-non-hash-url-routing-on-the-server"></a></h2><p>To fix the issue on the server, the solution is very easy, which is routing any client un-resolved url from the server to the root index.html of the application, which will serve the whole html/js/css files to the browser, and then the client application will resolve the url.</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/azure_static_webapp_deployment/" data-toggle="tooltip" data-placement="top" title="Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line">
+              Previous<br>
+              <span>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/0009_introduction_azure_networking/" data-toggle="tooltip" data-placement="top" title="A developer introduction to cloud networking">
+              Next<br>
+              <span>A developer introduction to cloud networking</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/.net/">.net</a>
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/azure-app-service/">azure app service</a>
+    
+    <a href="/tags/azure-networking/">azure networking</a>
+    
+    <a href="/tags/azure-static-web-app/">azure static web app</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/docker/">docker</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Blog 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

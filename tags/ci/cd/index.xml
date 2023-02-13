@@ -7,6 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="http://www.ghassan.page/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</title>
+      <link>http://www.ghassan.page/posts/0010_introducing_kudu/</link>
+      <pubDate>Wed, 01 Feb 2023 20:20:40 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/0010_introducing_kudu/</guid>
+      <description>If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
+Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
+When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment.</description>
+    </item>
+    
+    <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
       <link>http://www.ghassan.page/posts/azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>

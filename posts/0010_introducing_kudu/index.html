@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Introducing Kudu, the engine that handle all web application deployment to Azure App Service. | Ghassan Blog</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
+Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
+When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Introducing Kudu, the engine that handle all web application deployment to Azure App Service."/>
+<meta name="twitter:description" content="If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
+Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
+When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment."/>
+
+  <meta property="og:title" content="Introducing Kudu, the engine that handle all web application deployment to Azure App Service." />
+<meta property="og:description" content="If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
+Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
+When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/0010_introducing_kudu/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-01T20:20:40-07:00" />
+<meta property="article:modified_time" content="2023-02-01T20:20:40-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Blog</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/roninro/hugo-theme-puppet/" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/ci/cd/" title="ci/cd">ci/cd</a>
+            
+            <a class="tag" href="/tags/azure/" title="azure">azure</a>
+            
+            <a class="tag" href="/tags/azure-app-service/" title="azure app service">azure app service</a>
+            
+          </div>
+          <h1>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Wed, Feb 1, 2023
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.</p>
+<ol>
+<li>Using Azure DevOps</li>
+<li>Using Github actions and webhooks.</li>
+<li>FTP</li>
+<li>Zip Deploy.</li>
+<li>MSDeploy (Microsoft Web Deploy tool).</li>
+</ol>
+<p>But behind the scenes, all these options are using the same back engine, which is <a href="https://github.com/projectkudu/kudu" target="_blank">Kudu</a>.</p>
+<p>When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment.</p>
+<h2 id="how-it-works">How it works:<a class="anchorjs-link" href="#how-it-works"></a></h2><p>When we create an Azure App Service, we create an associated <strong><code>scm</code></strong> service for Kudu service, and other extensions.<br>
+To access those services we ass <code>scm</code> to the url as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span># if the URL of our website is:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>https://mywebsite.azurewebsites.net
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span># then the scm will be available on 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>https://mywebsite.scm.azurewebsites.net
+</span></span></code></pre></div><p>To verify this, just run the following command to get the deployment profiles for your app service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>az webapp deployment list-publishing-profiles --resource-group &lt;rg-name&gt; --name &lt;app-name&gt;
+</span></span></code></pre></div><p>You will get a json with at least three publishing profiles.<br>
+For an App service that we didn&rsquo;t create any Github actions or Azure DevOps, then they already have the three built-in publishing profiles:</p>
+<ul>
+<li>FTP</li>
+<li>ZipDeploy</li>
+<li>MSDeploy (which is Web Deploy)</li>
+</ul>
+<p>The output of previous command will be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>    <span style="color:#ff79c6">&#34;destinationAppUrl&#34;</span>: <span style="color:#f1fa8c">&#34;https://mywebsite.azurewebsites.net&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>    <span style="color:#ff79c6">&#34;profileName&#34;</span>: <span style="color:#f1fa8c">&#34;mywebsite- Web Deploy&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>    <span style="color:#ff79c6">&#34;publishMethod&#34;</span>: <span style="color:#f1fa8c">&#34;MSDeploy&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>    <span style="color:#ff79c6">&#34;publishUrl&#34;</span>: <span style="color:#f1fa8c">&#34;mywebsite.scm.azurewebsites.net:443&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>    <span style="color:#ff79c6">&#34;userName&#34;</span>: <span style="color:#f1fa8c">&#34;$mywebsite&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>    <span style="color:#ff79c6">&#34;userPWD&#34;</span>: <span style="color:#f1fa8c">&#34;...&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  },
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>    <span style="color:#ff79c6">&#34;destinationAppUrl&#34;</span>: <span style="color:#f1fa8c">&#34;https://mywebsite.azurewebsites.net&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>    <span style="color:#ff79c6">&#34;ftpPassiveMode&#34;</span>: <span style="color:#f1fa8c">&#34;True&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>    <span style="color:#ff79c6">&#34;profileName&#34;</span>: <span style="color:#f1fa8c">&#34;mywebsite - FTP&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>    <span style="color:#ff79c6">&#34;publishMethod&#34;</span>: <span style="color:#f1fa8c">&#34;FTP&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>    <span style="color:#ff79c6">&#34;publishUrl&#34;</span>: <span style="color:#f1fa8c">&#34;ftps://waws-prod-blu.ftp.azurewebsites.windows.net/site/wwwroot&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>    <span style="color:#ff79c6">&#34;userName&#34;</span>: <span style="color:#f1fa8c">&#34;mywebsite\\$mywebsite&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>    <span style="color:#ff79c6">&#34;userPWD&#34;</span>: <span style="color:#f1fa8c">&#34;...&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>  },
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>  {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>    <span style="color:#ff79c6">&#34;destinationAppUrl&#34;</span>: <span style="color:#f1fa8c">&#34;https://mywebsite.azurewebsites.net&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>    <span style="color:#ff79c6">&#34;profileName&#34;</span>: <span style="color:#f1fa8c">&#34;mywebsite- Zip Deploy&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>    <span style="color:#ff79c6">&#34;publishMethod&#34;</span>: <span style="color:#f1fa8c">&#34;ZipDeploy&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>    <span style="color:#ff79c6">&#34;publishUrl&#34;</span>: <span style="color:#f1fa8c">&#34;mywebsite.scm.azurewebsites.net:443&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>    <span style="color:#ff79c6">&#34;userName&#34;</span>: <span style="color:#f1fa8c">&#34;$mywebsite&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span>    <span style="color:#ff79c6">&#34;userPWD&#34;</span>: <span style="color:#f1fa8c">&#34;...&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span>  }
+</span></span></code></pre></div><p>ZipDeploy and MSDeploy are very similar by using the same publishing URL, but they are different of the zip file that is posted.<br>
+ZipDeploy can be achieved by generate a normal zip file for all the artifacts.<br>
+MSDeploy is using a special zip that is generated by Microsoft tool (Web Deploy) or MSBuild tools.</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/0008_azure_networking_reciep_one/" data-toggle="tooltip" data-placement="top" title="Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.">
+              Previous<br>
+              <span>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/0011_aspnet_watchdog/" data-toggle="tooltip" data-placement="top" title="Implement a watchdog for your microservices using off-the-shelf ASP.Net Healthcheck UI.">
+              Next<br>
+              <span>Implement a watchdog for your microservices using off-the-shelf ASP.Net Healthcheck UI.</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/.net/">.net</a>
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/azure-app-service/">azure app service</a>
+    
+    <a href="/tags/azure-networking/">azure networking</a>
+    
+    <a href="/tags/azure-static-web-app/">azure static web app</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/docker/">docker</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Blog 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

@@ -6,7 +6,18 @@
     <description>Recent content in aks on Ghassan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Dec 2022 19:47:05 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/aks/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Feb 2023 20:22:20 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/aks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Implement a watchdog for your microservices using off-the-shelf ASP.Net Healthcheck UI.</title>
+      <link>http://www.ghassan.page/posts/0011_aspnet_watchdog/</link>
+      <pubDate>Wed, 01 Feb 2023 20:22:20 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/0011_aspnet_watchdog/</guid>
+      <description>What is a watchdogA watchdog is a service that monitor other services and take actions when it detect a service is failing.
+ASP.NET starting from Core 5 has a built in UI module to monitor other services, and in few line of code you can build a watchdog for your services.
+How to hook it up with your services:Your microservices should implement health check endpoints to be monitored by the orchestration service (Kubernetes, docker storm, &amp;hellip; etc).</description>
+    </item>
+    
     <item>
       <title>Prepare .NET core Microservice to be monitored by Kubernetes</title>
       <link>http://www.ghassan.page/posts/prepare_aspnet_api_monitored_by_k8s/</link>
