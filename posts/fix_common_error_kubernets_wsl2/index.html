@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>How to fix common error using Azure Kubernetes AKS from WSL2 | Ghassan Blog</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
+Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:
+1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How to fix common error using Azure Kubernetes AKS from WSL2"/>
+<meta name="twitter:description" content="When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
+Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:
+1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use"/>
+
+  <meta property="og:title" content="How to fix common error using Azure Kubernetes AKS from WSL2" />
+<meta property="og:description" content="When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
+Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:
+1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/fix_common_error_kubernets_wsl2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-27T19:43:59-07:00" />
+<meta property="article:modified_time" content="2022-12-27T19:43:59-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Blog</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/roninro/hugo-theme-puppet/" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/kubernetes-k8s/" title="kubernetes-k8s">kubernetes-k8s</a>
+            
+            <a class="tag" href="/tags/aks/" title="aks">aks</a>
+            
+            <a class="tag" href="/tags/azure/" title="azure">azure</a>
+            
+          </div>
+          <h1>How to fix common error using Azure Kubernetes AKS from WSL2</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Tue, Dec 27, 2022
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>When you use Kubernetes CLI tool: <code>kubectl</code> that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the <code>kubectl</code> commands, because of Kubeconfig file.</p>
+<p>Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count <span style="color:#bd93f9">1</span> --enable-addons http_application_routing --generate-ssh-keys
+</span></span></code></pre></div><p>And then you need to set that new cluster as your default cluster to work on, so you use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>az aks get-credentials --resource-group MyMicroserviceResources --name MyMicroserviceCluster
+</span></span></code></pre></div><p>The previous command will retrieve the credentials of the newly created cluster and store it in the kubeconfig file, and make the newly cluster as the current default cluster, so any subsequent <code>kubectl</code> command will run against that cluster.<br>
+If you run the previous command from WSL2 terminal, you will get the following message:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Merged <span style="color:#f1fa8c">&#34;MyMicroserviceCluster&#34;</span> as current context in c:<span style="color:#f1fa8c">\U</span>sers<span style="color:#f1fa8c">\&lt;</span>username&gt;<span style="color:#f1fa8c">\.</span>kube<span style="color:#f1fa8c">\c</span>onfig
+</span></span></code></pre></div><p>Because Kubernetes CLI tool is installed with Docker Desktop for windows, so it default the config location to windows location.<br>
+But later any subsequent <code>kubectl</code> command from WSL2 terminal, will use the linux path for kubeconfig which is <code>~/.kube/config</code>.<br>
+So, if you run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>kubectl config current-context
+</span></span></code></pre></div><p>you will see that the current context still the current context in linux config file, which most probably is the default <strong>docker-desktop</strong>.</p>
+<p>To fix the problem, you can specify the config file as environment variable <strong>KUBECONFIG</strong>.<br>
+So modify the profile file <strong>~/.profile</strong> by adding the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">KUBECONFIG</span><span style="color:#ff79c6">=</span>/mnt/c/Users/&lt;windows user&gt;/.kube/config
+</span></span></code></pre></div><p>This will point the config file to the windows config file.</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/aspnet_minimal_api/" data-toggle="tooltip" data-placement="top" title="Some thoughts about ASP.NET Minimal API and Minimal Hosting Model">
+              Previous<br>
+              <span>Some thoughts about ASP.NET Minimal API and Minimal Hosting Model</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/prepare_aspnet_api_monitored_by_k8s/" data-toggle="tooltip" data-placement="top" title="Prepare .NET core Microservice to be monitored by Kubernetes">
+              Next<br>
+              <span>Prepare .NET core Microservice to be monitored by Kubernetes</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Blog 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

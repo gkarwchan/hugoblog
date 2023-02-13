@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Prepare .NET core Microservice to be monitored by Kubernetes | Ghassan Blog</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
+Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
+liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Prepare .NET core Microservice to be monitored by Kubernetes"/>
+<meta name="twitter:description" content="Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
+Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
+liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready."/>
+
+  <meta property="og:title" content="Prepare .NET core Microservice to be monitored by Kubernetes" />
+<meta property="og:description" content="Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
+Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
+liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/prepare_aspnet_api_monitored_by_k8s/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-27T19:47:05-07:00" />
+<meta property="article:modified_time" content="2022-12-27T19:47:05-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Blog</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/roninro/hugo-theme-puppet/" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/kubernetes-k8s/" title="kubernetes-k8s">kubernetes-k8s</a>
+            
+            <a class="tag" href="/tags/asp.net/" title="asp.net">asp.net</a>
+            
+            <a class="tag" href="/tags/aks/" title="aks">aks</a>
+            
+          </div>
+          <h1>Prepare .NET core Microservice to be monitored by Kubernetes</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Tue, Dec 27, 2022
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h2 id="kubernetes-monitoring">Kubernetes Monitoring:<a class="anchorjs-link" href="#kubernetes-monitoring"></a></h2><p>Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.<br>
+Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:</p>
+<ol>
+<li><strong>liveness</strong>: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one.</li>
+<li><strong>startup</strong>: Your service might need time at startup to wait for all its dependencies to be ready. Your service will implement this probe to tell Kubernetes that your service is ready or not to receive calls.</li>
+<li><strong>readiness</strong>: Will tell if your service is ready or not. it is different from liveness that Kubernetes won&rsquo;t restart a new container, but just remove it from the load balancer.</li>
+</ol>
+<p>We create on our microservices three end points that correspond to the three Kubernetes probes, and define it in the deployment config file.<br>
+As an example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">apiVersion</span>: v1
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#ff79c6">kind</span>: Pod
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span> ....
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#ff79c6">spec</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>  <span style="color:#ff79c6">containers</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>  - <span style="color:#ff79c6">name</span>: myservice
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>    <span style="color:#ff79c6">livenessProbe</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>      <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>        <span style="color:#ff79c6">path</span>: /live
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>        <span style="color:#ff79c6">initialDelaySeconds</span>: <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>        <span style="color:#ff79c6">periodSeconds</span>: <span style="color:#bd93f9">5</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>    <span style="color:#ff79c6">readinessProbe</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>      <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>        <span style="color:#ff79c6">path</span>: /ready
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>    <span style="color:#ff79c6">startupProbe</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>      <span style="color:#ff79c6">httpGet</span>:
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>        <span style="color:#ff79c6">path</span>: /started
+</span></span></code></pre></div><p>We don&rsquo;t have to implement all three and just implement what is useful for our case.</p>
+<blockquote>
+<p>P.S: Because <code>startup</code> and <code>readiness</code> overlap about checking external dependencies, most systems just implement one of them.</p>
+</blockquote>
+<h2 id="aspnet-core-health-check-features">ASP.NET Core health check features:<a class="anchorjs-link" href="#aspnet-core-health-check-features"></a></h2><p>ASP.NET offers health checks middleware and libraries for reporting the health of the app, and we don&rsquo;t have to build that from scratch.<br>
+Let us jump to the code and write a health check for liveness, which only check if the service respond to the url &ldquo;live&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>builder.Services.AddHealthChecks()
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>       .AddCheck(<span style="color:#f1fa8c">&#34;self&#34;</span>, () =&gt; HealthCheckResult.Healthy());
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#8be9fd">var</span> app = builder.Build();
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>app.UseHealthChecks(<span style="color:#f1fa8c">&#34;/live&#34;</span>, <span style="color:#ff79c6">new</span> HealthCheckOptions
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>       Predicate = r =&gt; r.Name.Contains(<span style="color:#f1fa8c">&#34;self&#34;</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>    });
+</span></span></code></pre></div><p>The above code will respond to the URL: <code>live</code> and return a string &ldquo;Healthy&rdquo;.</p>
+<p>Our service is using Sql Server, so let us write a health check for readiness by checking if the sql server is available.<br>
+Because Sql server is very common dependency in DOT.NET world, so you will expect lots of developers had to write that health check. So the community came up with many common used checks and added them in a nuget package.</p>
+<h4 id="common-occurring-health-check">Common occurring health check.<a class="anchorjs-link" href="#common-occurring-health-check"></a></h4><p>Most microservices are using some kind of data store, and maybe queue messaging software.<br>
+Checking these dependencies are part of the health check. The ASP.NET community came up with a library of predefined checks on common used resources, like for example:</p>
+<ul>
+<li>SQL Server</li>
+<li>RabbitQ</li>
+<li>AWS S3
+&hellip;.<br>
+Checkout the library <a href="https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks#health-checks" target="_blank">AspNetCore.Diagnostics.HealthChecks</a> to check all built-in predefined checks.</li>
+</ul>
+<p>As an example, to check the database connection as part of the healtcheck by using the above library we can write:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>builder.Services.AddHealthChecks()
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>.AddSqlServer(builder.Configuration.GetConnectionString(<span style="color:#f1fa8c">&#34;DefaultConnection&#34;</span>));
+</span></span></code></pre></div><p>If you didn&rsquo;t find your dependency in that library then just search on github and for sure you will find someone who already did that.</p>
+<p>So let assume our application is using sql server and redis , and let us write our readiness check by checking them both:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>builder.Services.AddHealthChecks()
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>       .AddCheck(<span style="color:#f1fa8c">&#34;self&#34;</span>, () =&gt; HealthCheckResult.Healthy())
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>.AddSqlServer(builder.Configuration.GetConnectionString(<span style="color:#f1fa8c">&#34;DefaultConnection&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>              tags: <span style="color:#ff79c6">new</span>[] {<span style="color:#f1fa8c">&#34;dependencies&#34;</span>})
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>.AddRedis(<span style="color:#f1fa8c">&#34;redis&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>              tags: <span style="color:#ff79c6">new</span>[] {<span style="color:#f1fa8c">&#34;dependencies&#34;</span>});
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#8be9fd">var</span> app = builder.Build();
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>app.UseHealthChecks(<span style="color:#f1fa8c">&#34;/live&#34;</span>, <span style="color:#ff79c6">new</span> HealthCheckOptions
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>    {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>       Predicate = r =&gt; r.Name.Contains(<span style="color:#f1fa8c">&#34;self&#34;</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>    });
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span> app.UseHealthChecks(<span style="color:#f1fa8c">&#34;/ready&#34;</span>, <span style="color:#ff79c6">new</span> HealthCheckOptions
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span> {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>    Predicate = r =&gt; r.Tags.Contains(<span style="color:#f1fa8c">&#34;dependencies&#34;</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span> });
+</span></span></code></pre></div><p>The above code will create two health check, on is the basic default one, and associate it with the url &ldquo;live&rdquo;, and the second will check sql server and redis and associate it with the url &ldquo;ready&rdquo;.</p>
+<p>And now your service is ready to be deployed to Kubernetes.</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/fix_common_error_kubernets_wsl2/" data-toggle="tooltip" data-placement="top" title="How to fix common error using Azure Kubernetes AKS from WSL2">
+              Previous<br>
+              <span>How to fix common error using Azure Kubernetes AKS from WSL2</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Blog 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

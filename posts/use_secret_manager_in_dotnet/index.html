@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Using Secret Manager for Configuration in .NET | Ghassan Blog</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="It is critical not to store passwords or API keys in our code.
+For all environments for the development process: (QA, UAT, Pre-Production, and Production), it is easier to place it in a safe place (Azure Key Vault for example), and access it during deployment.
+For developer machines, we can use Secret Manager, or sometimes called User Secrets, which has a built-in support in ASP.NET.
+Enable Secret Storage:In the project you want to add a secret run this command:">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Secret Manager for Configuration in .NET"/>
+<meta name="twitter:description" content="It is critical not to store passwords or API keys in our code.
+For all environments for the development process: (QA, UAT, Pre-Production, and Production), it is easier to place it in a safe place (Azure Key Vault for example), and access it during deployment.
+For developer machines, we can use Secret Manager, or sometimes called User Secrets, which has a built-in support in ASP.NET.
+Enable Secret Storage:In the project you want to add a secret run this command:"/>
+
+  <meta property="og:title" content="Using Secret Manager for Configuration in .NET" />
+<meta property="og:description" content="It is critical not to store passwords or API keys in our code.
+For all environments for the development process: (QA, UAT, Pre-Production, and Production), it is easier to place it in a safe place (Azure Key Vault for example), and access it during deployment.
+For developer machines, we can use Secret Manager, or sometimes called User Secrets, which has a built-in support in ASP.NET.
+Enable Secret Storage:In the project you want to add a secret run this command:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/use_secret_manager_in_dotnet/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-28T19:41:04-07:00" />
+<meta property="article:modified_time" content="2022-11-28T19:41:04-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Blog</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/roninro/hugo-theme-puppet/" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/asp.net/" title="asp.net">asp.net</a>
+            
+          </div>
+          <h1>Using Secret Manager for Configuration in .NET</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Mon, Nov 28, 2022
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>It is critical not to store passwords or API keys in our code.<br>
+For all environments for the development process: (QA, UAT, Pre-Production, and Production), it is easier to place it in a safe place (Azure Key Vault for example), and access it during deployment.<br>
+For developer machines, we can use <code>Secret Manager</code>, or sometimes called <code>User Secrets</code>, which has a built-in support in <code>ASP.NET</code>.</p>
+<p> </p>
+<h2 id="enable-secret-storage">Enable Secret Storage:<a class="anchorjs-link" href="#enable-secret-storage"></a></h2><p>In the project you want to add a secret run this command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>dotnet user-secrets init
+</span></span></code></pre></div><p>This will generate a secret file, which is a json file called <code>secrets.json</code>, in a folder with a GUID generated name.<br>
+The location of the folder is</p>
+<table>
+<thead>
+<tr>
+<th>Operating System</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td>%APPDATA%\Microsoft\UserSecrets&lt;user_secrets_id&gt;\secrets.json</td>
+</tr>
+<tr>
+<td>Linux/MacOS</td>
+<td>~/.microsoft/usersecrets/&lt;user_secrets_id&gt;/secrets.json</td>
+</tr>
+</tbody>
+</table>
+<p>And that generated GUID will be added to the project file <strong><code>.csproj</code></strong> as follows</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">&lt;UserSecretsId&gt;</span>d87e6676-57eb-45c8-98d4-c6a3be58debb<span style="color:#ff79c6">&lt;/UserSecretsId&gt;</span>
+</span></span></code></pre></div><p> </p>
+<h2 id="add-a-key-secret">Add a key secret<a class="anchorjs-link" href="#add-a-key-secret"></a></h2><p>Let&rsquo;s supposed we want to add a key-api for google-map, where the <code>appsettings.json</code> file the entry will look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>  <span style="color:#f1fa8c">&#34;googleMapApi&#34;</span> : {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">&#34;apiKey&#34;</span>: <span style="color:#f1fa8c">&#34;Enter anything here&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">&#34;apiUrl&#34;</span>: <span style="color:#f1fa8c">&#34;https://maps.googleapis.com/maps/api/json?&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  }
+</span></span></code></pre></div><p>To add that, we run the following command line</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>dotnet user-secrets <span style="color:#8be9fd;font-style:italic">set</span> <span style="color:#f1fa8c">&#34;googleMapApi:apiKey&#34;</span> <span style="color:#f1fa8c">&#34;&lt;real key goes here&gt;&#34;</span>
+</span></span></code></pre></div><h2 id="access-a-secret-in-aspnet">Access a secret in ASP.NET<a class="anchorjs-link" href="#access-a-secret-in-aspnet"></a></h2><p>For <strong>ASP.NET</strong> application, the <code>WebApplicationBuilder</code> add most of the configuration providers that are used by developers like environment variable provider, appsetting provider, command-line provider, and last but not least the user secret provider.<br>
+So, in ASP.NET you access it as any other configuration setting using <strong><code>IConfiguration</code></strong> injected by DI:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4">// pass this to the constructor to be injected by DI</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">private</span> <span style="color:#ff79c6">readonly</span> IConfiguration _configuration;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4">// and then inside the controller</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#8be9fd">var</span> key  = _configuration[<span style="color:#f1fa8c">&#34;googleMapApi:apiKey&#34;</span>]
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#6272a4">// or the following:</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9</span><span><span style="color:#8be9fd">var</span> key = _configuration.GetSection(<span style="color:#f1fa8c">&#34;googleMapApi&#34;</span>)[<span style="color:#f1fa8c">&#34;apiKey&#34;</span>];
+</span></span></code></pre></div><p> </p>
+<h2 id="access-a-secret-in-console-application">Access a secret in console application<a class="anchorjs-link" href="#access-a-secret-in-console-application"></a></h2><p>.NET console application don&rsquo;t provide built-in capability to read the user secrets or even any configuration provider, and we have to add that ability by adding the respective packages.<br>
+Add the following packages for a console app:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>dotnet add package Microsoft.Extensions.Configuration
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>dotnet add package Microsoft.Extentions.Configuration.Json
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>dotnet add package Microsoft.Extensions.Configuration.UserSecrets
+</span></span></code></pre></div><p>and then add the following code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>var configBuilder = new ConfigurationBuilder()
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    .AddJsonFile(&#34;appsettings.json&#34;, false, true)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    .AddUserSecrets(Assembly.GetExecutingAssembly(), true); 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>var config = configBuilder.Build();   
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>// then access it as follows
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>var key = config[&#34;googleMapApi:apiKey&#34;];
+</span></span></code></pre></div><p>And then you can access it as you access in ASP.NET</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          
+          <li class="next">
+            <a href="/posts/aspnet_minimal_api/" data-toggle="tooltip" data-placement="top" title="Some thoughts about ASP.NET Minimal API and Minimal Hosting Model">
+              Next<br>
+              <span>Some thoughts about ASP.NET Minimal API and Minimal Hosting Model</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Blog 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>
