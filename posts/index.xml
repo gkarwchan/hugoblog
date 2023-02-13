@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ghassan Blog</title>
-    <link>http://www.ghassan.page/</link>
-    <description>Recent content on Ghassan Blog</description>
+    <title>Posts on Ghassan Blog</title>
+    <link>http://www.ghassan.page/posts/</link>
+    <description>Recent content in Posts on Ghassan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Dec 2022 19:15:28 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2022 19:15:28 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Some thoughts about ASP.NET Minimal API and Minimal Hosting Model</title>
       <link>http://www.ghassan.page/posts/aspnet_minimal_api/</link>
