@@ -6,7 +6,70 @@
     <description>Recent content in Tags on Ghassan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Dec 2022 19:47:05 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Jan 2023 20:00:24 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>azure</title>
+      <link>http://www.ghassan.page/tags/azure/</link>
+      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/azure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azure app service</title>
+      <link>http://www.ghassan.page/tags/azure-app-service/</link>
+      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/azure-app-service/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azure networking</title>
+      <link>http://www.ghassan.page/tags/azure-networking/</link>
+      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/azure-networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azure static web app</title>
+      <link>http://www.ghassan.page/tags/azure-static-web-app/</link>
+      <pubDate>Sun, 08 Jan 2023 19:58:31 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/azure-static-web-app/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>.net</title>
+      <link>http://www.ghassan.page/tags/.net/</link>
+      <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/.net/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dev tools</title>
+      <link>http://www.ghassan.page/tags/dev-tools/</link>
+      <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/dev-tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>http://www.ghassan.page/tags/docker/</link>
+      <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/docker/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>aks</title>
       <link>http://www.ghassan.page/tags/aks/</link>
@@ -35,11 +98,11 @@
     </item>
     
     <item>
-      <title>azure</title>
-      <link>http://www.ghassan.page/tags/azure/</link>
-      <pubDate>Tue, 27 Dec 2022 19:43:59 -0700</pubDate>
+      <title>ci/cd</title>
+      <link>http://www.ghassan.page/tags/ci/cd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://www.ghassan.page/tags/azure/</guid>
+      <guid>http://www.ghassan.page/tags/ci/cd/</guid>
       <description></description>
     </item>
     

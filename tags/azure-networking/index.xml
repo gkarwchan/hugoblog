@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>azure networking on Ghassan Blog</title>
+    <link>http://www.ghassan.page/tags/azure-networking/</link>
+    <description>Recent content in azure networking on Ghassan Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Jan 2023 20:00:24 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/azure-networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</title>
+      <link>http://www.ghassan.page/posts/0008_azure_networking_reciep_one/</link>
+      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/0008_azure_networking_reciep_one/</guid>
+      <description>If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage.</description>
+    </item>
+    
+  </channel>
+</rss>

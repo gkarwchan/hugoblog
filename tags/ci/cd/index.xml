@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ci/cd on Ghassan Blog</title>
+    <link>http://www.ghassan.page/tags/ci/cd/</link>
+    <description>Recent content in ci/cd on Ghassan Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="http://www.ghassan.page/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
+      <link>http://www.ghassan.page/posts/azure_static_webapp_deployment/</link>
+      <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/azure_static_webapp_deployment/</guid>
+      <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
+    </item>
+    
+  </channel>
+</rss>
