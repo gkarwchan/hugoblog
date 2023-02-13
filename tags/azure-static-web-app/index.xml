@@ -19,10 +19,10 @@ But you need to make a small adjustment on the server that serve your static app
     
     <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
-      <link>http://www.ghassan.page/posts/azure_static_webapp_deployment/</link>
+      <link>http://www.ghassan.page/posts/0006_azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/azure_static_webapp_deployment/</guid>
+      <guid>http://www.ghassan.page/posts/0006_azure_static_webapp_deployment/</guid>
       <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
     </item>
     

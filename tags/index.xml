@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Ghassan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Feb 2023 20:22:20 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>azure</title>
+      <link>http://www.ghassan.page/tags/azure/</link>
+      <pubDate>Fri, 03 Feb 2023 20:42:03 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/azure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azure security</title>
+      <link>http://www.ghassan.page/tags/azure-security/</link>
+      <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/tags/azure-security/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>aks</title>
       <link>http://www.ghassan.page/tags/aks/</link>
@@ -22,15 +40,6 @@
       <pubDate>Wed, 01 Feb 2023 20:22:20 -0700</pubDate>
       
       <guid>http://www.ghassan.page/tags/asp.net/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>azure</title>
-      <link>http://www.ghassan.page/tags/azure/</link>
-      <pubDate>Wed, 01 Feb 2023 20:22:20 -0700</pubDate>
-      
-      <guid>http://www.ghassan.page/tags/azure/</guid>
       <description></description>
     </item>
     

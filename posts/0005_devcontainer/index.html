@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Take your development environment anywhere and on any machine with Dev Containers | Ghassan Blog</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="Dev containers provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.
+Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Take your development environment anywhere and on any machine with Dev Containers"/>
+<meta name="twitter:description" content="Dev containers provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.
+Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers."/>
+
+  <meta property="og:title" content="Take your development environment anywhere and on any machine with Dev Containers" />
+<meta property="og:description" content="Dev containers provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.
+Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/0005_devcontainer/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-29T19:51:56-07:00" />
+<meta property="article:modified_time" content="2022-12-29T19:51:56-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Blog</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/roninro/hugo-theme-puppet/" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/.net/" title=".net">.net</a>
+            
+            <a class="tag" href="/tags/docker/" title="docker">docker</a>
+            
+            <a class="tag" href="/tags/dev-tools/" title="dev tools">dev tools</a>
+            
+          </div>
+          <h1>Take your development environment anywhere and on any machine with Dev Containers</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Thu, Dec 29, 2022
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p><a href="https://containers.dev/" target="_blank">Dev containers</a> provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.</p>
+<p>Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.  And even if you don&rsquo;t have a compatible IDE, then you can run it inside <a href="https://github.com/features/codespaces" target="_blank">github&rsquo;s codespaces</a>, which is compatible with Dev container.</p>
+<h2 id="how-to-setup-dev-container">How to setup Dev container?<a class="anchorjs-link" href="#how-to-setup-dev-container"></a></h2><p>All you need is to create a json file called <strong><code>devcontainer.json</code></strong> and an optional Dockerfile, which you add all your tools, software, and libraries (for example dotnet SDK, SQL server, redis&hellip;)</p>
+<h2 id="how-developers-use-it">How developers use it?<a class="anchorjs-link" href="#how-developers-use-it"></a></h2><p>A new developer only needs a compatible IDE installed on their machine, and docker desktop of course.<br>
+Even a developer can work on github&rsquo;s codespaces, and this way they can take their environment anywhere they want, and on any machine.<br>
+Right now the only IDE that work with dev containers are Microsoft Visual Studio Code, and Visual Studio, but that might change with time.</p>
+<h2 id="how-to-create-a-dev-container">How to create a dev container?<a class="anchorjs-link" href="#how-to-create-a-dev-container"></a></h2><ol>
+<li>in your root folder of your project, create a subfolder called <strong><code>.devcontainer</code></strong>.</li>
+<li>In that folder create a file called <strong><code>devcontainer.json</code></strong>.</li>
+<li>the content off the file devcontainer.json will specify what tools, libraries you use.</li>
+</ol>
+<p>To create the file you have two options:</p>
+<ol>
+<li>start from a predefined templates, and add libraries later.</li>
+<li>Or you build your own environment from scratch.</li>
+</ol>
+<h4 id="predefined-templated">Predefined templated:<a class="anchorjs-link" href="#predefined-templated"></a></h4><p>There are already of the shelf Dev docker images for common development environment. For example there is one for dotnet, and other for Java, and other for Node.<br>
+For a list of the pre-built templates <a href="https://containers.dev/templates" target="_blank">check here</a>.<br>
+Using a pre-built dev container doesn&rsquo;t mean you are only limited to that image, because you can still add other tools, which they are called <strong><code>features</code></strong> to that image.<br>
+, and for the other <code>features</code> that you can add <a href="https://containers.dev/features" target="_blank">check this</a>.</p>
+<p>You don&rsquo;t need a Docker file, unless you want to build your dev environment step by step.</p>
+<p>For example, I am going to build a dev container for dotnet sdk 6, with Azure cli, and bash command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>{
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;my dotnet development&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">&#34;image&#34;</span>: <span style="color:#f1fa8c">&#34;mcr.microsoft.com/devcontainers/dotnet:0-6.0&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#ff79c6">&#34;features&#34;</span> {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>        <span style="color:#ff79c6">&#34;ghcr.io/devcontainers/features/azure-cli:1&#34;</span>: {},
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>	<span style="color:#ff79c6">&#34;ghcr.io/devcontainers-contrib/features/bash-command:1&#34;</span>: {}
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>}
+</span></span></code></pre></div><p>For a detailed attributes and syntax for this file, <a href="https://containers.dev/implementors/json_reference/" target="_blank">refer to this document</a>.</p>
+<p>If you prefer to build your own environment from scratch, then you should write a docker file, and in that case your devcontainer.json file will look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>{
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;my dotnet environment&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">&#34;build&#34;</span>: {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>       <span style="color:#ff79c6">&#34;dockerfile&#34;</span>: <span style="color:#f1fa8c">&#34;Dockerfile&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>}
+</span></span></code></pre></div><p>And you provide a docker file in the same folder <code>.devcontainer</code>.</p>
+<h2 id="how-to-use-dev-containers">How to use dev containers?<a class="anchorjs-link" href="#how-to-use-dev-containers"></a></h2><p>All what you need to use a dev container is an IDE that support them, and right now the only IDE that support them are:</p>
+<ul>
+<li>Visual Studio Code</li>
+<li>Visual Studio</li>
+</ul>
+<p>Or alternatively you can use github&rsquo;s codespaces, and then you can run your code from any browser on any device.<br>
+For visual studio code, you need to install <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" target="_blank">an extension to run create and integrate with dev containers</a>.<br>
+When you open a folder that contains a dev container, VS code automatically prompt you an option to open the folder to develop in container.</p>
+<p>![Visual studio code prompt for dev container](<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dcfdwoh1uqkwokdcuzhe.jpg" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/0004_prepare_aspnet_api_monitored_by_k8s/" data-toggle="tooltip" data-placement="top" title="Prepare .NET core Microservice to be monitored by Kubernetes">
+              Previous<br>
+              <span>Prepare .NET core Microservice to be monitored by Kubernetes</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/0006_azure_static_webapp_deployment/" data-toggle="tooltip" data-placement="top" title="Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line">
+              Next<br>
+              <span>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/.net/">.net</a>
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/azure-app-service/">azure app service</a>
+    
+    <a href="/tags/azure-networking/">azure networking</a>
+    
+    <a href="/tags/azure-security/">azure security</a>
+    
+    <a href="/tags/azure-static-web-app/">azure static web app</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/docker/">docker</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Blog 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

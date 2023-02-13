@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>azure security on Ghassan Blog</title>
+    <link>http://www.ghassan.page/tags/azure-security/</link>
+    <description>Recent content in azure security on Ghassan Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Feb 2023 20:40:37 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/azure-security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0012_parse_sas_token_regex</title>
+      <link>http://www.ghassan.page/posts/0012_parse_sas_token_regex/</link>
+      <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/0012_parse_sas_token_regex/</guid>
+      <description>If you have an Azure SAS token that is not working, it is good idea to parse it and understand what permissions and values it contains.
+This is a JavaScript code that uses Regular Expression to parse he SAS token, and an running example where you can try your own SAS token.
+1var paramNames = { 2 sig: &amp;#39;cryptographic signature&amp;#39;, 3 st: &amp;#39;start time&amp;#39;, 4 se: &amp;#39;end time&amp;#39;, 5 spr: &amp;#39;protocol&amp;#39;, 6 srt: &amp;#39;resource types&amp;#39;, 7 sv: &amp;#39;version&amp;#39;, 8 sp: &amp;#39;permissions&amp;#39;, 9 ss: &amp;#39;services&amp;#39; 10}; 11 12let valueLookups = { 13 sp : { 14 r: &amp;#39;read&amp;#39;, d: &amp;#39;delete&amp;#39;, w: &amp;#39;write&amp;#39;, l: &amp;#39;list&amp;#39;, a: &amp;#39;add&amp;#39;, 15 c: &amp;#39;create&amp;#39;, u: &amp;#39;update&amp;#39;, p: &amp;#39;process&amp;#39;, f: &amp;#39;filter&amp;#39; 16 }, 17 srt: { 18 s: &amp;#39;service&amp;#39;, c: &amp;#39;container&amp;#39;, o: &amp;#39;object&amp;#39; 19 }, 20 ss : { 21 b: &amp;#39;blob&amp;#39;, f: &amp;#39;file&amp;#39;, q: &amp;#39;queue&amp;#39;, t: &amp;#39;table&amp;#39; 22 } 23} 24 25let valueConvertor = (key, inputValue) =&amp;gt; 26 valueLookups[key] ?</description>
+    </item>
+    
+  </channel>
+</rss>

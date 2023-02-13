@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 29 Dec 2022 19:51:56 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Take your development environment anywhere and on any machine with Dev Containers</title>
-      <link>http://www.ghassan.page/posts/devcontainer/</link>
+      <link>http://www.ghassan.page/posts/0005_devcontainer/</link>
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/devcontainer/</guid>
+      <guid>http://www.ghassan.page/posts/0005_devcontainer/</guid>
       <description>Dev containers provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.
 Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.</description>
     </item>

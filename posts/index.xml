@@ -6,7 +6,30 @@
     <description>Recent content in Posts on Ghassan Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Feb 2023 20:22:20 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use Azure Key Vault to retrieve secured parameters during  Azure deployment.</title>
+      <link>http://www.ghassan.page/posts/0013_azure_keyvault_deployment/</link>
+      <pubDate>Fri, 03 Feb 2023 20:42:03 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/0013_azure_keyvault_deployment/</guid>
+      <description>You have an ARM template to deploy, and you need to pass secure parameters. Instead of storing secure values in the parameter file, you can just retrieve these values from Key Vault.
+To be able to access the key vault by the resource manager you need to change access policy to allow &amp;ldquo;Azure Resource Manager for template deployment&amp;rdquo;, as shown here.
+Or you can do it from Powershell:
+1// to update an existing key vault 2Set-AzKeyVaultAccessPolicy -VaultName MyVaultName -EnabledForTemplateDeployment 3 4// to create a new key vault with this feature enabled 5New-AzKeyVault ` 6 -VaultName MyVaultName ` 7 -resourceGroupName myresourcegroup ` 8 -Location centralus ` 9 -EnabledForTemplateDeployment How to use it?</description>
+    </item>
+    
+    <item>
+      <title>0012_parse_sas_token_regex</title>
+      <link>http://www.ghassan.page/posts/0012_parse_sas_token_regex/</link>
+      <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/0012_parse_sas_token_regex/</guid>
+      <description>If you have an Azure SAS token that is not working, it is good idea to parse it and understand what permissions and values it contains.
+This is a JavaScript code that uses Regular Expression to parse he SAS token, and an running example where you can try your own SAS token.
+1var paramNames = { 2 sig: &amp;#39;cryptographic signature&amp;#39;, 3 st: &amp;#39;start time&amp;#39;, 4 se: &amp;#39;end time&amp;#39;, 5 spr: &amp;#39;protocol&amp;#39;, 6 srt: &amp;#39;resource types&amp;#39;, 7 sv: &amp;#39;version&amp;#39;, 8 sp: &amp;#39;permissions&amp;#39;, 9 ss: &amp;#39;services&amp;#39; 10}; 11 12let valueLookups = { 13 sp : { 14 r: &amp;#39;read&amp;#39;, d: &amp;#39;delete&amp;#39;, w: &amp;#39;write&amp;#39;, l: &amp;#39;list&amp;#39;, a: &amp;#39;add&amp;#39;, 15 c: &amp;#39;create&amp;#39;, u: &amp;#39;update&amp;#39;, p: &amp;#39;process&amp;#39;, f: &amp;#39;filter&amp;#39; 16 }, 17 srt: { 18 s: &amp;#39;service&amp;#39;, c: &amp;#39;container&amp;#39;, o: &amp;#39;object&amp;#39; 19 }, 20 ss : { 21 b: &amp;#39;blob&amp;#39;, f: &amp;#39;file&amp;#39;, q: &amp;#39;queue&amp;#39;, t: &amp;#39;table&amp;#39; 22 } 23} 24 25let valueConvertor = (key, inputValue) =&amp;gt; 26 valueLookups[key] ?</description>
+    </item>
+    
     <item>
       <title>Implement a watchdog for your microservices using off-the-shelf ASP.Net Healthcheck UI.</title>
       <link>http://www.ghassan.page/posts/0011_aspnet_watchdog/</link>
@@ -59,29 +82,29 @@ But you need to make a small adjustment on the server that serve your static app
     
     <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
-      <link>http://www.ghassan.page/posts/azure_static_webapp_deployment/</link>
+      <link>http://www.ghassan.page/posts/0006_azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/azure_static_webapp_deployment/</guid>
+      <guid>http://www.ghassan.page/posts/0006_azure_static_webapp_deployment/</guid>
       <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
     </item>
     
     <item>
       <title>Take your development environment anywhere and on any machine with Dev Containers</title>
-      <link>http://www.ghassan.page/posts/devcontainer/</link>
+      <link>http://www.ghassan.page/posts/0005_devcontainer/</link>
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/devcontainer/</guid>
+      <guid>http://www.ghassan.page/posts/0005_devcontainer/</guid>
       <description>Dev containers provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.
 Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.</description>
     </item>
     
     <item>
       <title>Prepare .NET core Microservice to be monitored by Kubernetes</title>
-      <link>http://www.ghassan.page/posts/prepare_aspnet_api_monitored_by_k8s/</link>
+      <link>http://www.ghassan.page/posts/0004_prepare_aspnet_api_monitored_by_k8s/</link>
       <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/prepare_aspnet_api_monitored_by_k8s/</guid>
+      <guid>http://www.ghassan.page/posts/0004_prepare_aspnet_api_monitored_by_k8s/</guid>
       <description>Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
 Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
 liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready.</description>
@@ -89,10 +112,10 @@ liveness: which monitor any deadlock, or the service is down, and Kubernetes wil
     
     <item>
       <title>How to fix common error using Azure Kubernetes AKS from WSL2</title>
-      <link>http://www.ghassan.page/posts/fix_common_error_kubernets_wsl2/</link>
+      <link>http://www.ghassan.page/posts/0003_fix_common_error_kubernets_wsl2/</link>
       <pubDate>Tue, 27 Dec 2022 19:43:59 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/fix_common_error_kubernets_wsl2/</guid>
+      <guid>http://www.ghassan.page/posts/0003_fix_common_error_kubernets_wsl2/</guid>
       <description>When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
 Let&amp;rsquo;s supposed you want to create a new cluster on AKS, as follows:
 1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use</description>
@@ -100,20 +123,20 @@ Let&amp;rsquo;s supposed you want to create a new cluster on AKS, as follows:
     
     <item>
       <title>Some thoughts about ASP.NET Minimal API and Minimal Hosting Model</title>
-      <link>http://www.ghassan.page/posts/aspnet_minimal_api/</link>
+      <link>http://www.ghassan.page/posts/0002_aspnet_minimal_api/</link>
       <pubDate>Mon, 19 Dec 2022 19:15:28 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/aspnet_minimal_api/</guid>
+      <guid>http://www.ghassan.page/posts/0002_aspnet_minimal_api/</guid>
       <description>Why this post?Looking at the new ASP.NET 6 and its minimal hosting model, triggered some thoughts comparing it to ASP.NET 2, and made me think if Microsoft going back to some old concepts. And was questioning the real benefits of migrating to this model. So let me explain, and compare it with ASP.NET version 5 and 2.
 The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in .</description>
     </item>
     
     <item>
       <title>Using Secret Manager for Configuration in .NET</title>
-      <link>http://www.ghassan.page/posts/use_secret_manager_in_dotnet/</link>
+      <link>http://www.ghassan.page/posts/0001_use_secret_manager_in_dotnet/</link>
       <pubDate>Mon, 28 Nov 2022 19:41:04 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/use_secret_manager_in_dotnet/</guid>
+      <guid>http://www.ghassan.page/posts/0001_use_secret_manager_in_dotnet/</guid>
       <description>It is critical not to store passwords or API keys in our code.
 For all environments for the development process: (QA, UAT, Pre-Production, and Production), it is easier to place it in a safe place (Azure Key Vault for example), and access it during deployment.
 For developer machines, we can use Secret Manager, or sometimes called User Secrets, which has a built-in support in ASP.NET.
