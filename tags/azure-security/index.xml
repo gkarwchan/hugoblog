@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 03 Feb 2023 20:40:37 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/azure-security/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>0012_parse_sas_token_regex</title>
+      <title>Parse Azure SAS token using regular expression</title>
       <link>http://www.ghassan.page/posts/0012_parse_sas_token_regex/</link>
       <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
       
