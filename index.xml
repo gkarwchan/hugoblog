@@ -144,9 +144,19 @@ Enable Secret Storage:In the project you want to add a secret run this command:<
     </item>
     
     <item>
-      <title>About Me</title>
+      <title>No More JavaScript Transpiler</title>
+      <link>http://www.ghassan.page/posts/2020_12_23_no_more_js_transpiler/</link>
+      <pubDate>Wed, 23 Dec 2020 16:02:54 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_12_23_no_more_js_transpiler/</guid>
+      <description>&lt;p&gt;With modern browsers supporting ES6 modules, and Edge is adopting Chromium which align the major browsers to use latest EcmaScript features, we don&amp;rsquo;t need to use transpilers like Webpack or Gulp.&lt;br&gt;
+This will make it easier on many areas, and enhance the performance of our applications.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About</title>
       <link>http://www.ghassan.page/about/</link>
-      <pubDate>Thu, 10 Feb 2011 19:51:56 -0700</pubDate>
+      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
       <guid>http://www.ghassan.page/about/</guid>
       <description>Hi, my name is Ghassan Karwchan.

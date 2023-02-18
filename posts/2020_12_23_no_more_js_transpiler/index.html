@@ -8,21 +8,24 @@
 
   
     
-  <title>About | Ghassan Page</title>
+  <title>No More JavaScript Transpiler | Ghassan Page</title>
   <meta name="author" content="Ghassan Karwchan">
-  <meta name="description" content="Hugo, the world&#39;s fastest framework for building websites">
+  <meta name="description" content="With modern browsers supporting ES6 modules, and Edge is adopting Chromium which align the major browsers to use latest EcmaScript features, we don&rsquo;t need to use transpilers like Webpack or Gulp.
+This will make it easier on many areas, and enhance the performance of our applications.">
   <meta name="keywords" content="blog,developer,personal">
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="About"/>
-<meta name="twitter:description" content="Hugo, the world&#39;s fastest framework for building websites"/>
+<meta name="twitter:title" content="No More JavaScript Transpiler"/>
+<meta name="twitter:description" content="With modern browsers supporting ES6 modules, and Edge is adopting Chromium which align the major browsers to use latest EcmaScript features, we don&rsquo;t need to use transpilers like Webpack or Gulp.
+This will make it easier on many areas, and enhance the performance of our applications."/>
 
-  <meta property="og:title" content="About" />
-<meta property="og:description" content="Hugo, the world&#39;s fastest framework for building websites" />
+  <meta property="og:title" content="No More JavaScript Transpiler" />
+<meta property="og:description" content="With modern browsers supporting ES6 modules, and Edge is adopting Chromium which align the major browsers to use latest EcmaScript features, we don&rsquo;t need to use transpilers like Webpack or Gulp.
+This will make it easier on many areas, and enhance the performance of our applications." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.ghassan.page/about/" /><meta property="article:section" content="" />
-<meta property="article:published_time" content="2019-02-28T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-02-28T00:00:00+00:00" />
+<meta property="og:url" content="http://www.ghassan.page/posts/2020_12_23_no_more_js_transpiler/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-12-23T16:02:54-07:00" />
+<meta property="article:modified_time" content="2020-12-23T16:02:54-07:00" />
 
   <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
@@ -167,11 +170,11 @@
           <div class="tags">
             
           </div>
-          <h1>About</h1>
+          <h1>No More JavaScript Transpiler</h1>
           <h2 class="subheading"></h2>
           <span class="meta">
-            Posted by  Hugo Authors 
-            on Thu, Feb 28, 2019
+            Posted by  Ghassan Karwchan 
+            on Wed, Dec 23, 2020
           </span>
         </div>
       </div>
@@ -192,21 +195,34 @@
               col-lg-8 col-lg-offset-2
               col-md-10 col-md-offset-1
               post-container">
-        <p>Hi, my name is Ghassan Karwchan.<br>
-I am a full stack software developer living in Calgary, Alberta, Canada.<br>
-I am specialized in web developement, and mostly with .NET platform.<br>
-But sometimes I enjoy developing outside of Microsoft world, with Python, Node.js, or Go.<br>
-Lots of JavaScript experience.</p>
-
+        <p>With modern browsers supporting ES6 modules, and Edge is adopting Chromium which align the major browsers to use latest EcmaScript features, we don&rsquo;t need to use transpilers like Webpack or Gulp.<br>
+This will make it easier on many areas, and enhance the performance of our applications.</p>
+<h3 id="using-js-modules-in-the-browser">Using JS modules in the browser<a class="anchorjs-link" href="#using-js-modules-in-the-browser"></a></h3><p>On the web, you can tell browsers to treat a &lt;script&gt; element as a module by setting the type attribute to module.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;module&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;main.mjs&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">nomodule</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;fallback.js&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span></code></pre></div><p>Browsers that understand type=&ldquo;module&rdquo; ignore scripts with a nomodule attribute. This means you can serve a module-based payload to module-supporting browsers while providing a fallback to other browsers.<br>
+The ability to make this distinction is amazing, because if the browser can understand module, then it understand all the new features of JS like arrow functions or async-await.  Which means for module script, you don’t have to transpile those features in your module bundle anymore! You can serve smaller and largely untranspiled module-based payloads to modern browsers. Only legacy browsers get the nomodule payload.</p>
+<p>Modules are deferred by default, but classic &lt;script&gt; blocks the HTML parser by default. You can work around it by adding the defer attribute, which ensures that the script download happens in parallel with HTML parsing.</p>
+<p>Module scripts are deferred by default. As such, there is no need to add defer to your &lt;script type=&ldquo;module&rdquo;&gt; tags! Not only does the download for the main module happen in parallel with HTML parsing, the same goes for all the dependency modules!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;module&#34;</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;main.mjs&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>&lt;<span style="color:#ff79c6">script</span> <span style="color:#50fa7b">nomodule</span> <span style="color:#50fa7b">defer</span> <span style="color:#50fa7b">src</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;fallback.js&#34;</span>&gt;&lt;/<span style="color:#ff79c6">script</span>&gt;
+</span></span></code></pre></div>
 
         <hr style="visibility: hidden;" />
         <ul class="pager">
           
+          <li class="previous">
+            <a href="/about/" data-toggle="tooltip" data-placement="top" title="About">
+              Previous<br>
+              <span>About</span>
+            </a>
+          </li>
+          
           
           <li class="next">
-            <a href="/posts/2020_12_23_no_more_js_transpiler/" data-toggle="tooltip" data-placement="top" title="No More JavaScript Transpiler">
+            <a href="/posts/2022_11_28_use_secret_manager_in_dotnet/" data-toggle="tooltip" data-placement="top" title="Using Secret Manager for Configuration in .NET">
               Next<br>
-              <span>No More JavaScript Transpiler</span>
+              <span>Using Secret Manager for Configuration in .NET</span>
             </a>
           </li>
           
