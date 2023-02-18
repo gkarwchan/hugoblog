@@ -8,33 +8,27 @@
 
   
     
-  <title>About Me | Ghassan Page</title>
+  <title>How to fix common error using Azure Kubernetes AKS from WSL2 | Ghassan Page</title>
   <meta name="author" content="Ghassan Karwchan">
-  <meta name="description" content="Hi, my name is Ghassan Karwchan.
-I am a full stack software developer living in Calgary, Alberta, Canada.
-I am specialized in web developement, and mostly with .NET platform.
-But sometimes I enjoy developing outside of Microsoft world, with Python, Node.js, or Go.
-Lots of JavaScript experience.">
+  <meta name="description" content="When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
+Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:
+1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use">
   <meta name="keywords" content="blog,developer,personal">
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="About Me"/>
-<meta name="twitter:description" content="Hi, my name is Ghassan Karwchan.
-I am a full stack software developer living in Calgary, Alberta, Canada.
-I am specialized in web developement, and mostly with .NET platform.
-But sometimes I enjoy developing outside of Microsoft world, with Python, Node.js, or Go.
-Lots of JavaScript experience."/>
+<meta name="twitter:title" content="How to fix common error using Azure Kubernetes AKS from WSL2"/>
+<meta name="twitter:description" content="When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
+Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:
+1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use"/>
 
-  <meta property="og:title" content="About Me" />
-<meta property="og:description" content="Hi, my name is Ghassan Karwchan.
-I am a full stack software developer living in Calgary, Alberta, Canada.
-I am specialized in web developement, and mostly with .NET platform.
-But sometimes I enjoy developing outside of Microsoft world, with Python, Node.js, or Go.
-Lots of JavaScript experience." />
+  <meta property="og:title" content="How to fix common error using Azure Kubernetes AKS from WSL2" />
+<meta property="og:description" content="When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
+Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:
+1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://www.ghassan.page/about/" /><meta property="article:section" content="" />
-<meta property="article:published_time" content="2011-02-10T19:51:56-07:00" />
-<meta property="article:modified_time" content="2011-02-10T19:51:56-07:00" />
+<meta property="og:url" content="http://www.ghassan.page/posts/2022_12_27_fix_common_error_kubernets_wsl2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-27T19:43:59-07:00" />
+<meta property="article:modified_time" content="2022-12-27T19:43:59-07:00" />
 
   <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
@@ -180,12 +174,18 @@ Lots of JavaScript experience." />
         <div class="post-heading">
           <div class="tags">
             
+            <a class="tag" href="/tags/kubernetes-k8s/" title="kubernetes-k8s">kubernetes-k8s</a>
+            
+            <a class="tag" href="/tags/aks/" title="aks">aks</a>
+            
+            <a class="tag" href="/tags/azure/" title="azure">azure</a>
+            
           </div>
-          <h1>About Me</h1>
+          <h1>How to fix common error using Azure Kubernetes AKS from WSL2</h1>
           <h2 class="subheading"></h2>
           <span class="meta">
             Posted by  Ghassan Karwchan 
-            on Thu, Feb 10, 2011
+            on Tue, Dec 27, 2022
           </span>
         </div>
       </div>
@@ -206,21 +206,40 @@ Lots of JavaScript experience." />
               col-lg-8 col-lg-offset-2
               col-md-10 col-md-offset-1
               post-container">
-        <p>Hi, my name is Ghassan Karwchan.<br>
-I am a full stack software developer living in Calgary, Alberta, Canada.<br>
-I am specialized in web developement, and mostly with .NET platform.<br>
-But sometimes I enjoy developing outside of Microsoft world, with Python, Node.js, or Go.<br>
-Lots of JavaScript experience.</p>
+        <p>When you use Kubernetes CLI tool: <code>kubectl</code> that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the <code>kubectl</code> commands, because of Kubeconfig file.</p>
+<p>Let&rsquo;s supposed you want to create a new cluster on AKS, as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count <span style="color:#bd93f9">1</span> --enable-addons http_application_routing --generate-ssh-keys
+</span></span></code></pre></div><p>And then you need to set that new cluster as your default cluster to work on, so you use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>az aks get-credentials --resource-group MyMicroserviceResources --name MyMicroserviceCluster
+</span></span></code></pre></div><p>The previous command will retrieve the credentials of the newly created cluster and store it in the kubeconfig file, and make the newly cluster as the current default cluster, so any subsequent <code>kubectl</code> command will run against that cluster.<br>
+If you run the previous command from WSL2 terminal, you will get the following message:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Merged <span style="color:#f1fa8c">&#34;MyMicroserviceCluster&#34;</span> as current context in c:<span style="color:#f1fa8c">\U</span>sers<span style="color:#f1fa8c">\&lt;</span>username&gt;<span style="color:#f1fa8c">\.</span>kube<span style="color:#f1fa8c">\c</span>onfig
+</span></span></code></pre></div><p>Because Kubernetes CLI tool is installed with Docker Desktop for windows, so it default the config location to windows location.<br>
+But later any subsequent <code>kubectl</code> command from WSL2 terminal, will use the linux path for kubeconfig which is <code>~/.kube/config</code>.<br>
+So, if you run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>kubectl config current-context
+</span></span></code></pre></div><p>you will see that the current context still the current context in linux config file, which most probably is the default <strong>docker-desktop</strong>.</p>
+<p>To fix the problem, you can specify the config file as environment variable <strong>KUBECONFIG</strong>.<br>
+So modify the profile file <strong>~/.profile</strong> by adding the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">KUBECONFIG</span><span style="color:#ff79c6">=</span>/mnt/c/Users/&lt;windows user&gt;/.kube/config
+</span></span></code></pre></div><p>This will point the config file to the windows config file.</p>
 
 
         <hr style="visibility: hidden;" />
         <ul class="pager">
           
+          <li class="previous">
+            <a href="/posts/2022_12_19_aspnet_minimal_api/" data-toggle="tooltip" data-placement="top" title="Some thoughts about ASP.NET Minimal API and Minimal Hosting Model">
+              Previous<br>
+              <span>Some thoughts about ASP.NET Minimal API and Minimal Hosting Model</span>
+            </a>
+          </li>
+          
           
           <li class="next">
-            <a href="/posts/2022_11_28_use_secret_manager_in_dotnet/" data-toggle="tooltip" data-placement="top" title="Using Secret Manager for Configuration in .NET">
+            <a href="/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/" data-toggle="tooltip" data-placement="top" title="Prepare .NET core Microservice to be monitored by Kubernetes">
               Next<br>
-              <span>Using Secret Manager for Configuration in .NET</span>
+              <span>Prepare .NET core Microservice to be monitored by Kubernetes</span>
             </a>
           </li>
           

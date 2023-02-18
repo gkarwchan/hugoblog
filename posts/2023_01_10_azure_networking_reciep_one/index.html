@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network. | Ghassan Page</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network."/>
+<meta name="twitter:description" content="If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage."/>
+
+  <meta property="og:title" content="Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network." />
+<meta property="og:description" content="If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-10T20:00:24-07:00" />
+<meta property="article:modified_time" content="2023-01-10T20:00:24-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Page</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/gkarwchan/hugoblogsource" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/azure/" title="azure">azure</a>
+            
+            <a class="tag" href="/tags/azure-networking/" title="azure networking">azure networking</a>
+            
+            <a class="tag" href="/tags/azure-app-service/" title="azure app service">azure app service</a>
+            
+          </div>
+          <h1>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Tue, Jan 10, 2023
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly.
+I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage.</p>
+<h2 id="prerequisite-for-this-post">Prerequisite for this post:<a class="anchorjs-link" href="#prerequisite-for-this-post"></a></h2><p>This post is to describe how to define a network connection between your application deployed on the App Service, and your database server. I am assuming that you already have an App service on Azure, and created a database on Azure.<br>
+This tutorial is using the portal, so I am assuming you have knowledge of Azure portal enough to navigate around and create resources.</p>
+<h2 id="virtual-network-connection-in-a-nutshell">Virtual Network connection in a nutshell:<a class="anchorjs-link" href="#virtual-network-connection-in-a-nutshell"></a></h2><p>In a nutshell when we connect an App Service to any other resource through a virtual network (VNet, later we will use the term VNet for virtual network), we should do the following:</p>
+<ol>
+<li>From App Service side, we make all outbound connections go through the VNet. This feature is called <strong><code>VNet integration</code></strong>.</li>
+<li>From the resource side, we create a service endpoint or a private end point.</li>
+</ol>
+<p>Don&rsquo;t get worry that you don&rsquo;t understand those terms, because we are going to describe them and their functionalities in details later. But we can summarize the App service and its connection to Azure resource through VNet using this diagram.</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6rvesohir95ocanl46tf.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="walkthrough-to-create-vnet-connection">Walkthrough to create VNet connection:<a class="anchorjs-link" href="#walkthrough-to-create-vnet-connection"></a></h2><h3 id="step-1-create-a-vnet">Step 1: Create a VNet:<a class="anchorjs-link" href="#step-1-create-a-vnet"></a></h3><p>From Azure portal, select Resources / Virtual Network, and then create a virtual network.<br>
+Fill in the details of virtual network name and region.<br>
+select region the same where Azure SQL server, and the App service</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svfyj3y357m16hvyorp7.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>For the IP addresses just keep the default, and keep the default subnet.
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/og2a869v7v9omte62icj.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>For security keep everything disabled right now, and we might change that later.
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/p429inzy1y92mxpu3y47.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure>
+Then continue to creation and click on create, and wait for the VNet to be created.</p>
+<h3 id="step-2-create-a-subnet-for-the-app-service-integration">Step 2: Create a subnet for the App Service integration:<a class="anchorjs-link" href="#step-2-create-a-subnet-for-the-app-service-integration"></a></h3><p>The next step is to create a subnet and integrate our App service in it.</p>
+<h4 id="what-is-app-service-vnet-integration">What is App Service VNet Integration:<a class="anchorjs-link" href="#what-is-app-service-vnet-integration"></a></h4><p>To make our app service communicate to other resources on the VNet we enable App Service VNet integration.</p>
+<p>VNet integration is used only to make outbound calls from your app into your virtual network.
+VNet integration supports connecting to a virtual network in the same region. If you want to connect to resources in other regions or VNet in other regions then we need to add a gateway, but that will be outside the discussion of this post.</p>
+<p>Create a subnet in the VNet and keep the addresses as default, and call it <strong><code>appSubnet</code></strong></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1ggf0zozol3e3hl2ayii.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>Still in the subnet scroll down until you find <strong><code>Subnet Delagation</code></strong> and choose :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Microsoft.web/ServerFarms
+</span></span></code></pre></div><h4 id="what-is-subnet-delegation">What is Subnet Delegation?<a class="anchorjs-link" href="#what-is-subnet-delegation"></a></h4><p>Delegation means a given subnet is only going to be used by that service, and in our case App service Plans are defined as <strong><code>Microsoft.web/serverFarms</code></strong>.</p>
+<p>Save and continue to next step.</p>
+<h3 id="step-3-enable-app-service-integration-to-the-new-subnet">Step 3: Enable App service integration to the new subnet:<a class="anchorjs-link" href="#step-3-enable-app-service-integration-to-the-new-subnet"></a></h3><p>After we created a subnet and make it dedicated to serve App Service plans, now we want to integrate our App service to that subnet.<br>
+Go to your App Service, and select the <strong><code>Network blade</code></strong>.<br>
+Choose VNet integration.<br>
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dmpy6z8nusglo4tmbdwa.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>Choose Add VNet
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uurt7hsqcjdl943n5zpb.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>Add the existing Subnet <strong><code>appSubnet</code></strong>:
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/91ih2k99ut34eewsi7if.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="step-4-create-private-endpoint-for-azure-sql-server">Step 4: Create Private EndPoint for Azure SQL Server:<a class="anchorjs-link" href="#step-4-create-private-endpoint-for-azure-sql-server"></a></h3><p>Private endpoint are not the only solution to connect to SQL server from a VNet, but in this post we are going to choose this path, and we might explain alternatives in a different post.<br>
+To connect Azure Sql server to a VNet we have to create two items:</p>
+<ul>
+<li>Private endpoint</li>
+<li>Azure Private Link
+The following diagram explain the job of each part
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3xxyxykzfiqid356l509.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></li>
+</ul>
+<h4 id="what-is-private-link">What is Private Link?<a class="anchorjs-link" href="#what-is-private-link"></a></h4><p>Private Link will bring services delivered on Azure into our VNet by mapping it to a private endpoint. Or privately deliver your the services in VNets. All traffic to the service can be routed through the private endpoint, so no gateways, NAT devices, ExpressRoute or VPN connections, or public IP addresses are needed. Private Link keeps traffic on the Microsoft global network.</p>
+<p>From Azure portal create a <strong><code>Private Endpoint</code></strong>. Make the region the same where your VNet and Sql server is:
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ey8gypz8pq66aypyhqa4.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure>
+Move next to <strong>Resources</strong> and chose : <strong>Connect to an Azure resource in my directory</strong> and choose <strong><code>Microsoft.SqlServer</code></strong>, and then choose the server.</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cgva4xcfv96l1ueb0hgd.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>Next move to virtual network and choose our VNet:<br>
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/5hmc70n9s0pumqsz7n0a.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure>
+And on next screen: DNS keep the default to integrate with private DNS</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t8ezx2p6f6sc6p4gqwnk.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure>
+then create the private endpoint.<br>
+This process will create the following:</p>
+<ol>
+<li>Private Endpoint</li>
+<li>Private Link</li>
+<li>Connect to the VNet through network interface</li>
+<li>Define a private DNS for sql server name resolution, so you can keep your old connection string from the app server the same.</li>
+</ol>
+<p>If you go to the VNet, you will see that it has now an endpoint.
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i7cwa9kci6ltrpduun50.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure>
+and if you navigate to the endpoint blade you will see the new endpoint.</p>
+<h4 id="more-about-the-benefits-of-private-endpoint">More about the benefits of private endpoint<a class="anchorjs-link" href="#more-about-the-benefits-of-private-endpoint"></a></h4><p>One of the benefits of Private Endpoint feature is that since all connections are being sent directly to your logical Azure SQL Server via the private IP address, they no longer need to flow through the Azure SQL Database gateways. In the public endpoint flow, connections are first sent to one of the Azure SQL gateways to then get redirected back to the node hosting the database.</p>
+<p>By using Private Endpoint, the Azure SQL Database gateways are bypassed completely and always use port 1433. This reduces your security risk footprint by ensuring communication to your database is never going through the Azure SQL gateway and is locked to one address on a single port and from your Virtual Network. If you aren&rsquo;t familiar with the Azure SQL Database connectivity architecture, there&rsquo;s a great Microsoft Docs article on it.
+Just like anything, there are benefits, limitations, and trade-offs to every feature. Here are some things to keep in mind when using Private Endpoints with Azure SQL Database:</p>
+<p>Private Link is one way only. This allows clients on your VNet to connect to the Azure SQL resource but doesn&rsquo;t allow Azure services to reach into your Virtual Network. This makes sense when dealing with databases but remember that Private Link is a networking feature for many Azure services, not just Azure SQL Database.
+The Azure Private Endpoint is at the logical SQL Server level. So, you have access to everything on that server via the private IP address, not to only a single database. This could be both good or bad, depending on your needs.
+When removing the public endpoint, make sure to also think about turning off the Allow Azure Services option, so it also blocks anything else running in an Azure data center from getting in.</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/2023_01_09_introduction_azure_networking/" data-toggle="tooltip" data-placement="top" title="A developer introduction to cloud networking">
+              Previous<br>
+              <span>A developer introduction to cloud networking</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/2023_02_01_introducing_kudu/" data-toggle="tooltip" data-placement="top" title="Introducing Kudu, the engine that handle all web application deployment to Azure App Service.">
+              Next<br>
+              <span>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/.net/">.net</a>
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/azure-app-service/">azure app service</a>
+    
+    <a href="/tags/azure-networking/">azure networking</a>
+    
+    <a href="/tags/azure-security/">azure security</a>
+    
+    <a href="/tags/azure-static-web-app/">azure static web app</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/docker/">docker</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Page 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

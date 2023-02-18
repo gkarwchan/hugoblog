@@ -9,19 +9,19 @@
     <lastBuildDate>Tue, 10 Jan 2023 20:00:24 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/azure-networking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</title>
-      <link>http://www.ghassan.page/posts/0008_azure_networking_reciep_one/</link>
+      <link>http://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</link>
       <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/0008_azure_networking_reciep_one/</guid>
+      <guid>http://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</guid>
       <description>If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage.</description>
     </item>
     
     <item>
       <title>A developer introduction to cloud networking</title>
-      <link>http://www.ghassan.page/posts/0009_introduction_azure_networking/</link>
+      <link>http://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/</link>
       <pubDate>Sun, 08 Jan 2023 20:07:36 -0700</pubDate>
       
-      <guid>http://www.ghassan.page/posts/0009_introduction_azure_networking/</guid>
+      <guid>http://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/</guid>
       <description>As a developer who dealt with the cloud, either to create a virtual machine, or to deploy a website that connect to a database, then most probabely you had to deal even in short with a private network. And most of us developers don&amp;rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking.</description>
     </item>
     

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>A developer introduction to cloud networking | Ghassan Page</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="As a developer who dealt with the cloud, either to create a virtual machine, or to deploy a website that connect to a database, then most probabely you had to deal even in short with a private network. And most of us developers don&rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A developer introduction to cloud networking"/>
+<meta name="twitter:description" content="As a developer who dealt with the cloud, either to create a virtual machine, or to deploy a website that connect to a database, then most probabely you had to deal even in short with a private network. And most of us developers don&rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking."/>
+
+  <meta property="og:title" content="A developer introduction to cloud networking" />
+<meta property="og:description" content="As a developer who dealt with the cloud, either to create a virtual machine, or to deploy a website that connect to a database, then most probabely you had to deal even in short with a private network. And most of us developers don&rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-08T20:07:36-07:00" />
+<meta property="article:modified_time" content="2023-01-08T20:07:36-07:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan Page</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/series/themes-guide/" title="Guide">Guide</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/gkarwchan/hugoblogsource" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/azure/" title="azure">azure</a>
+            
+            <a class="tag" href="/tags/azure-networking/" title="azure networking">azure networking</a>
+            
+          </div>
+          <h1>A developer introduction to cloud networking</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Sun, Jan 8, 2023
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>As a developer who dealt with the cloud, either to create a virtual machine, or to deploy a website that connect to a database, then most probabely you had to deal even in short with a private network.
+And most of us developers don&rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking.
+This post is an introduction for developers who know very little about the cloud, and will cover enough information to help you understand how to take better decisions.</p>
+<h3 id="introduction-to-private-networks">Introduction to private networks:<a class="anchorjs-link" href="#introduction-to-private-networks"></a></h3><p>Amazon has the Virtual Private Cloud (VPC), and Azure has its equivalent the Virtual Network (VN). Both let you isolate many resources (databases, file storage, API servers….) into their own private network that is protected (not accessible) from the outside, and they can securely communicate with each others, even they can communicate securely with on-promises networks. As well, you can create a segment of that network to communicate to the outside world.
+Both VPC, and VN are using the networking technique called <a href="https://en.wikipedia.org/wiki/Private_network" target="_blank">Private Network</a> which the <a href="https://en.wikipedia.org/wiki/Local_area_network" target="_blank">Local Area Network LAN</a> is just one implementation of it.</p>
+<h3 id="what-is-a-private-network">What is a private network?<a class="anchorjs-link" href="#what-is-a-private-network"></a></h3><p>Private Network, is a network that uses private IP address space, which provides these essential functionalities to the network:</p>
+<ul>
+<li>Help in the shortage of IP addresses on IPV4, by re-using the same address range of other private networks.</li>
+<li>Isolate and protect your resources from outside. For example, you want your cloud database to be isolated, and accessible only from your web server.</li>
+<li>Segment your own virtual network, into one or more subnets, so you can isolate your own resources to not communicate with each others.</li>
+</ul>
+<h3 id="how-does-a-private-network-work">How does a private network work?<a class="anchorjs-link" href="#how-does-a-private-network-work"></a></h3><p>When we build a private network, we choose a range of private network addresses, and we should select one of the available address ranges available for private networks.
+Internet Assigned Numbers Authority (IANA) reserved the following IPv4 address ranges for private networks. (P.S: if you heard the term <a href="https://tools.ietf.org/html/rfc1918" target="_blank">RFC1918</a> then it is the protocol that reserves these addresses).</p>
+<ul>
+<li>192.168.0.0 - 192.168.255.255 (65,536 IP addresses)</li>
+<li>172.16.0.0 - 172.31.255.255 (1,048,576 IP addresses)</li>
+<li>10.0.0.0 - 10.255.255.255 (16,777,216 IP addresses).</li>
+</ul>
+<p>We can do a better representation of these addresses with <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing" target="_blank">CIDR format</a></p>
+<table>
+<thead>
+<tr>
+<th>IP address range</th>
+<th>number of addresses</th>
+<th>largest CIDR block (subnet mask)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.0.0.0 – 10.255.255.255</td>
+<td>16777216</td>
+<td>10.0.0.0/8 (255.0.0.0)</td>
+</tr>
+<tr>
+<td>172.16.0.0 – 172.31.255.255</td>
+<td>1048576</td>
+<td>172.16.0.0/12 (255.240.0.0)</td>
+</tr>
+<tr>
+<td>192.168.0.0 – 192.168.255.255</td>
+<td>65536</td>
+<td>192.168.0.0/16 (255.255.0.0)</td>
+</tr>
+</tbody>
+</table>
+<p>To learn more about CIDR please read <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing" target="_blank">its wikipedia page</a></p>
+<p>This is why when you try to find your local IP address through Windows’s <em><code>ipconfig</code></em>, or Linux’s <em><code>ifconfig</code></em>, you will get an address from the ranges above.</p>
+<h3 id="private-network-and-nat">Private Network and NAT<a class="anchorjs-link" href="#private-network-and-nat"></a></h3><p>In order to allow resources (such as computers) on a private network communicate to the external internet, there is a method called Network Address Translation
+(NAT), or Port Address Translation (PAT), which is based on a “routing device”  (like your home router) that will translate a large number of these private IP addresses to a single public IP address. It does so by mapping each internal/private IP address to the public IP address and a specific port (as usually defined in the TCP or UDP protocols). This way, you can have a network containing multiple devices (e.g. 10.0.0.1, 10.0.0.2, 10.0.0.3, etc), and they will all be represented by the single router with a public IP address (e.g. 11.32.123.4).</p>
+<h4 id="exercise-on-nat-in-action">Exercise on NAT in action<a class="anchorjs-link" href="#exercise-on-nat-in-action"></a></h4><p>To see the NAT or PAT in action, you can test it on your local home router.
+If you have more than one device in your own home (Laptop, mobile, tablet..), then try find your local private IP address by either using of the these commands:
+Windows’s ipconfig
+POSIX’s ifconfig</p>
+<p>Or on the mobile, you can go to the settings and check your ip address.
+You will find an address from the range mentioned in the table obove.</p>
+<p>To find your external IP address, go to the website <a href="https://www.whatismyip.com/" target="_blank">https://www.whatismyip.com</a>.
+You will find a different IP address, which is the IP address that your ISP assigned to you.</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/2023_01_08_azure_static_webapp_routing/" data-toggle="tooltip" data-placement="top" title="SPA routing and how to handle it with Azure Static Web app.">
+              Previous<br>
+              <span>SPA routing and how to handle it with Azure Static Web app.</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/2023_01_10_azure_networking_reciep_one/" data-toggle="tooltip" data-placement="top" title="Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.">
+              Next<br>
+              <span>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/.net/">.net</a>
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/azure-app-service/">azure app service</a>
+    
+    <a href="/tags/azure-networking/">azure networking</a>
+    
+    <a href="/tags/azure-security/">azure security</a>
+    
+    <a href="/tags/azure-static-web-app/">azure static web app</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/docker/">docker</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan Page 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>
