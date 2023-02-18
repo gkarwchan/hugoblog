@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ghassan Blog</title>
+    <title>Ghassan Page</title>
     <link>http://www.ghassan.page/</link>
-    <description>Recent content on Ghassan Blog</description>
+    <description>Recent content on Ghassan Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 03 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About Me</title>
+      <link>http://www.ghassan.page/about/</link>
+      <pubDate>Fri, 10 Feb 2023 19:51:56 -0700</pubDate>
+      
+      <guid>http://www.ghassan.page/about/</guid>
+      <description>Hi, my name is Ghassan Karwchan.
+I am a full stack software developer living in Calgary, Alberta, Canada.
+I am specialized in web developement, and mostly with .NET platform.
+But sometimes I enjoy developing outside of Microsoft world, with Python, Node.js, or Go.
+Lots of JavaScript experience.</description>
+    </item>
+    
     <item>
       <title>Use Azure Key Vault to retrieve secured parameters during  Azure deployment.</title>
       <link>http://www.ghassan.page/posts/0013_azure_keyvault_deployment/</link>

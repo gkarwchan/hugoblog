@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>dev tools on Ghassan Blog</title>
+    <title>dev tools on Ghassan Page</title>
     <link>http://www.ghassan.page/tags/dev-tools/</link>
-    <description>Recent content in dev tools on Ghassan Blog</description>
+    <description>Recent content in dev tools on Ghassan Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 29 Dec 2022 19:51:56 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/dev-tools/index.xml" rel="self" type="application/rss+xml" />

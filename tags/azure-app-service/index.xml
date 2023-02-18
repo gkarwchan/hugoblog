@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>azure app service on Ghassan Blog</title>
+    <title>azure app service on Ghassan Page</title>
     <link>http://www.ghassan.page/tags/azure-app-service/</link>
-    <description>Recent content in azure app service on Ghassan Blog</description>
+    <description>Recent content in azure app service on Ghassan Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 01 Feb 2023 20:20:40 -0700</lastBuildDate><atom:link href="http://www.ghassan.page/tags/azure-app-service/index.xml" rel="self" type="application/rss+xml" />
