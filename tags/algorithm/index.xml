@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>algorithm on Ghassan&#39;s Page</title>
+    <link>http://www.ghassan.page/tags/algorithm/</link>
+    <description>Recent content in algorithm on Ghassan&#39;s Page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="http://www.ghassan.page/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Regular expression: Extract HTML Links</title>
+      <link>http://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</link>
+      <pubDate>Fri, 11 Sep 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</guid>
+      <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical recipes:&lt;br&gt;
+In this recipe we are going to cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Negated Character class&lt;/li&gt;
+&lt;li&gt;Non-capturing group&lt;/li&gt;
+&lt;li&gt;Non-Greedy quantifier.&lt;/li&gt;
+&lt;li&gt;Python&amp;rsquo;s &lt;code&gt;findall&lt;/code&gt;, and JavaScript&amp;rsquo;s &lt;code&gt;exec&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Regular expression: Extract Domain Names</title>
+      <link>http://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</link>
+      <pubDate>Fri, 08 May 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</guid>
+      <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical recipes:&lt;br&gt;
+In this recipe we are going to cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Anchors&lt;/li&gt;
+&lt;li&gt;Non-capturing group&lt;/li&gt;
+&lt;li&gt;Python&amp;rsquo;s &lt;code&gt;findall&lt;/code&gt;, and JavaScript&amp;rsquo;s &lt;code&gt;exec&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Regular expression: Extract Comments From Code</title>
+      <link>http://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</link>
+      <pubDate>Thu, 07 May 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</guid>
+      <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical receipes:&lt;br&gt;
+In this recipe we are going to cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Capturing Group&lt;/li&gt;
+&lt;li&gt;Negated Character Class&lt;/li&gt;
+&lt;li&gt;Greedy / non-greedy quantifier.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Regular expression: Extract Comments From Code | Ghassan&#39;s Page</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="Explain advanced concepts of Regular Expressions through practical receipes:
+In this recipe we are going to cover:
+
+Capturing Group
+Negated Character Class
+Greedy / non-greedy quantifier.
+">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Regular expression: Extract Comments From Code"/>
+<meta name="twitter:description" content="Explain advanced concepts of Regular Expressions through practical receipes:
+In this recipe we are going to cover:
+
+Capturing Group
+Negated Character Class
+Greedy / non-greedy quantifier.
+"/>
+
+  <meta property="og:title" content="Regular expression: Extract Comments From Code" />
+<meta property="og:description" content="Explain advanced concepts of Regular Expressions through practical receipes:
+In this recipe we are going to cover:
+
+Capturing Group
+Negated Character Class
+Greedy / non-greedy quantifier.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-05-07T09:45:00+00:00" />
+<meta property="article:modified_time" content="2020-05-07T09:45:00+00:00" />
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.ghassan.page/">Ghassan&#39;s Page</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/gkarwchan/hugoblogsource" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/algorithm/" title="algorithm">algorithm</a>
+            
+          </div>
+          <h1>Regular expression: Extract Comments From Code</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Thu, May 7, 2020
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>Explain advanced concepts of Regular Expressions through practical receipes:<br>
+In this recipe we are going to cover:</p>
+<ul>
+<li>Capturing Group</li>
+<li>Negated Character Class</li>
+<li>Greedy / non-greedy quantifier.</li>
+</ul>
+<h2 id="problem-description">Problem Description<a class="anchorjs-link" href="#problem-description"></a></h2><p>We need to parse a file of code to extract the comments in the code.<br>
+The comments can be single line comments:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JavaScript" data-lang="JavaScript"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">// this is a single line comment
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span>x <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1</span>; <span style="color:#6272a4">// a single line comment after code
+</span></span></span></code></pre></div><p>Or multi lines</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JavaScript" data-lang="JavaScript"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">/* This is one way of writing comments */</span> 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4">/* This is a multiline 
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4">   comment. These can often
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4">   be useful*/</span>
+</span></span></code></pre></div><br />
+<br />
+<h2 id="code">Code<a class="anchorjs-link" href="#code"></a></h2><p>The final code in JavaScript:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#8be9fd;font-style:italic">function</span> processData(inputText) {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#8be9fd;font-style:italic">var</span> t <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">String</span>.raw<span style="color:#f1fa8c">`(//[^\n]*|/\*[\s\S]*?\*/)`</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#8be9fd;font-style:italic">var</span> ex <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">RegExp</span>(t, <span style="color:#f1fa8c">&#39;g&#39;</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    <span style="color:#8be9fd;font-style:italic">var</span> ar <span style="color:#ff79c6">=</span> inputText.match(ex).map(x =&gt; 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>        x.split(<span style="color:#f1fa8c">&#39;\n&#39;</span>).map(y =&gt; y.trimStart()).join(<span style="color:#f1fa8c">&#39;\n&#39;</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>        )
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>    <span style="color:#ff79c6">return</span> ar
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9</span><span>} 
+</span></span></code></pre></div><p>And Python</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">import</span> sys
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">import</span> re
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">extract_comments</span>(txt):
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    comments <span style="color:#ff79c6">=</span> [ j<span style="color:#ff79c6">.</span>lstrip() <span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">in</span> re<span style="color:#ff79c6">.</span>findall(<span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(//[^\n]*|/\*.*?\*/)&#39;</span>, 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>        txt, re<span style="color:#ff79c6">.</span>MULTILINE <span style="color:#ff79c6">|</span> re<span style="color:#ff79c6">.</span>DOTALL) <span style="color:#ff79c6">for</span> j <span style="color:#ff79c6">in</span> i<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>)]
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>    <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span><span style="color:#ff79c6">.</span>join(comments)
+</span></span></code></pre></div><br />
+<br />
+<h2 id="code-description">Code Description<a class="anchorjs-link" href="#code-description"></a></h2><p>Let us explain the code.</p>
+<p>For Python:</p>
+<ol>
+<li>we start by writing the pattern in a string and prefix it with <strong><code>r</code></strong> prefix, which treat the rest as <code>Raw</code> string, which means ignore the escape character <strong><code>\</code></strong> and treat it as normal character.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;the pattern string&#39;</span>
+</span></span></code></pre></div></li>
+<li>Because we want to extract the comments in the code, so we have to create <code>Capturing Group</code>. The capture group will capture the text matched by them into a numbered group. We create a capture group with <strong><code>()</code></strong>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(the pattern of comments to match)&#39;</span>
+</span></span></code></pre></div></li>
+<li>We have two styles of comments to capture: single line comment, and multi-lines comment. this is why we separate them with <strong><code>|</code></strong>. so our regular expression format is:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(single line format | multi-line format)&#39;</span>
+</span></span></code></pre></div></li>
+<li>The first comment style is single line comment, which starts with <strong><code>//</code></strong>.</li>
+<li>and then we should match all the rest of characters until new line. To do that we use <strong><code>Negated Character Class</code></strong> : <code>[^\n]*</code> which means any character but new line. Negated Character Class will match any character that is not in the negated character class.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(//[^\n]*| multi-line format)&#39;</span>
+</span></span></code></pre></div></li>
+<li>We are done with first style of comments, and let us move to the second style of comments which is multi-line.</li>
+<li>the multi-line comment starts with <strong><code>/*</code></strong>. We represent that with <code>/\*</code>. Notice how we added the escape character <code>\ </code> before the star, so we treat the star as a normal star and not a special character.</li>
+<li>Then we need to match any character including new line, and to do that we use the special character (Dot) <strong><code>.</code></strong>. The special character <strong><code>.</code></strong> (Dot) will match any character except the new line, but in Python there is an option we can specify to makes the Dot matches new line, and that option will be passed to match statement <code>re.DOTALL</code>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>re<span style="color:#ff79c6">.</span>findall(<span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(pattern with Dot)&#39;</span>, txt, re<span style="color:#ff79c6">.</span>MULTILINE <span style="color:#ff79c6">|</span> re<span style="color:#ff79c6">.</span>DOTALL)
+</span></span></code></pre></div></li>
+<li>to close the multi-line comment we add the following to the pattern: <code>\*/</code>, which make the whole pattern as follows:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>re<span style="color:#ff79c6">.</span>findall(<span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(//[^\n]*|/\*.*\*/)&#39;</span>, txt, re<span style="color:#ff79c6">.</span>MULTILINE <span style="color:#ff79c6">|</span> re<span style="color:#ff79c6">.</span>DOTALL)
+</span></span></code></pre></div></li>
+<li>Now there is a problem with previous code, which is caused by <code>Greedy quantifier</code>. We will discuss this in details later, but now to continue and finish, to fix the problem we add <code>?</code> after the star <code>*</code> to be as follows:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>re<span style="color:#ff79c6">.</span>findall(<span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(//[^\n]*|/\*.*?\*/)&#39;</span>, txt, re<span style="color:#ff79c6">.</span>MULTILINE <span style="color:#ff79c6">|</span> re<span style="color:#ff79c6">.</span>DOTALL)
+</span></span></code></pre></div></li>
+</ol>
+<p>Before we jump to greedy quantifier, let us discuss JavaScript code.</p>
+<h4 id="javascript-code">JavaScript Code<a class="anchorjs-link" href="#javascript-code"></a></h4><p>The JavaScript code is very similar to the python except one important exception. JavaScript doesn&rsquo;t have an option to force the special character <code>.</code> (Dot) to match new line as in Python, and the alternative is to match this:
+<code>javascript [\s\S]*? </code>
+And for an alternative for <code>re.MULTILINE</code> in python there is a flag <code>g</code> in JavaScript.
+<code>javascript var t = String.raw`(//[^\n]*|/\*[\s\S]*?\*/)` var ex = new RegExp(t, 'g') </code></p>
+<br />
+<br />
+<h2 id="greedy-and-non-greedy-quantifier">Greedy and non-greedy quantifier:<a class="anchorjs-link" href="#greedy-and-non-greedy-quantifier"></a></h2><p>An Example on extracting comments that are not working:</p>
+<p>For the input text:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">/* Iterate through the list till we encounter the last node.*/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">while</span>(pointer<span style="color:#ff79c6">-&gt;</span>next<span style="color:#ff79c6">!=</span>NULL)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>            pointer <span style="color:#ff79c6">=</span> pointer <span style="color:#ff79c6">-&gt;</span> next;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    <span style="color:#6272a4">/* Allocate memory for the new node and put data in it.*/</span>
+</span></span></code></pre></div><p>It will generate this output</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">/* Iterate through the list till we encounter the last node.*/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">while</span>(pointer<span style="color:#ff79c6">-&gt;</span>next<span style="color:#ff79c6">!=</span>NULL)
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>            pointer <span style="color:#ff79c6">=</span> pointer <span style="color:#ff79c6">-&gt;</span> next;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    }
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    <span style="color:#6272a4">/* Allocate memory for the new node and put data in it.*/</span>
+</span></span></code></pre></div><p>To fix this problem we will add <code>*?</code> as non-greedy quantifier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>re<span style="color:#ff79c6">.</span>findall(<span style="color:#f1fa8c">r</span><span style="color:#f1fa8c">&#39;(//[^\n]*|/\*.*?\*/)&#39;</span>, txt, re<span style="color:#ff79c6">.</span>MULTILINE <span style="color:#ff79c6">|</span> re<span style="color:#ff79c6">.</span>DOTALL)
+</span></span></code></pre></div><p>To explain more:<br>
+By default, a quantifier tells the engine to match as many instances of its quantified token or sub-pattern as possible. This behavior is called greedy.<br>
+As an example to match</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd;font-style:italic">var</span> rg <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">/.*apple/g</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#8be9fd;font-style:italic">var</span> input <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;a tasty apple&#39;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>input.match(rg)
+</span></span></code></pre></div><p>The previous code won&rsquo;t match because the <code>.*</code> is greedy, so it swallow all characters, and then nothing left for <code>apple</code>.
+The default behavior when you try to match something with the quantifier, it matches the longest possible.</p>
+<br />
+<br />
+<h2 id="regular-expression-series">Regular Expression Series:<a class="anchorjs-link" href="#regular-expression-series"></a></h2><p>This article is part of a series about regular expression. These are the other articles:</p>
+<ol>
+<li>[Advanced Regular Expression By Example : An Introduction]({% post_url 2020-05-06-Advanced-regular-expression-by-examples %})</li>
+<li>Extract Comments from code ( this article)</li>
+<li>[Extract Domain Name]({% post_url 2020-05-08-Regular-expression-extract-domain-names %})</li>
+<li>[Extract Links From HTML Document]({% post_url 2020-09-11-Regular-expression-extract-html-links %})</li>
+</ol>
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/about/" data-toggle="tooltip" data-placement="top" title="About">
+              Previous<br>
+              <span>About</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/posts/2020_05_08_regular_expression_extract_domain_names/" data-toggle="tooltip" data-placement="top" title="Regular expression: Extract Domain Names">
+              Next<br>
+              <span>Regular expression: Extract Domain Names</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="gkarwchan/hugoblog" 
+  data-repo-id="R_kgDOI9C7aQ"
+  data-category="General"
+  data-category-id="DIC_kwDOI9C7ac4CUTNT"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/.net/">.net</a>
+    
+    <a href="/tags/aks/">aks</a>
+    
+    <a href="/tags/algorithm/">algorithm</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/azure-app-service/">azure app service</a>
+    
+    <a href="/tags/azure-networking/">azure networking</a>
+    
+    <a href="/tags/azure-security/">azure security</a>
+    
+    <a href="/tags/azure-static-web-app/">azure static web app</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/docker/">docker</a>
+    
+    <a href="/tags/javascript/">javascript</a>
+    
+    <a href="/tags/kubernetes-k8s/">kubernetes-k8s</a>
+    
+    <a href="/tags/performance/">performance</a>
+    
+    <a href="/tags/python/">python</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan&#39;s Page 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>

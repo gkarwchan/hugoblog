@@ -153,5 +153,61 @@ Enable Secret Storage:In the project you want to add a secret run this command:<
 This will make it easier on many areas, and enhance the performance of our applications.&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>Memoization in Python and JavaScript</title>
+      <link>http://www.ghassan.page/posts/2020_09_20_memoization_python_javascript/</link>
+      <pubDate>Sun, 20 Sep 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_09_20_memoization_python_javascript/</guid>
+      <description>&lt;p&gt;Memoization is a technique that is used a lot in Dynamic Programming and in general to speed up algorithms.&lt;br&gt;
+Memoization is the same as caching but in functional programming. The Caching mechanism will store the data into a cache store, and that data can be from anywhere (HTTP page, REST call, &amp;hellip; etc) , where memoization is specific to cache the results of a function, and it create and maintain the store inside the function itself (so the function will be pure function) and send the store as a parameter into the function arguments.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Regular expression: Extract HTML Links</title>
+      <link>http://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</link>
+      <pubDate>Fri, 11 Sep 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</guid>
+      <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical recipes:&lt;br&gt;
+In this recipe we are going to cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Negated Character class&lt;/li&gt;
+&lt;li&gt;Non-capturing group&lt;/li&gt;
+&lt;li&gt;Non-Greedy quantifier.&lt;/li&gt;
+&lt;li&gt;Python&amp;rsquo;s &lt;code&gt;findall&lt;/code&gt;, and JavaScript&amp;rsquo;s &lt;code&gt;exec&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Regular expression: Extract Domain Names</title>
+      <link>http://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</link>
+      <pubDate>Fri, 08 May 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</guid>
+      <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical recipes:&lt;br&gt;
+In this recipe we are going to cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Anchors&lt;/li&gt;
+&lt;li&gt;Non-capturing group&lt;/li&gt;
+&lt;li&gt;Python&amp;rsquo;s &lt;code&gt;findall&lt;/code&gt;, and JavaScript&amp;rsquo;s &lt;code&gt;exec&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Regular expression: Extract Comments From Code</title>
+      <link>http://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</link>
+      <pubDate>Thu, 07 May 2020 09:45:00 +0000</pubDate>
+      
+      <guid>http://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</guid>
+      <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical receipes:&lt;br&gt;
+In this recipe we are going to cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Capturing Group&lt;/li&gt;
+&lt;li&gt;Negated Character Class&lt;/li&gt;
+&lt;li&gt;Greedy / non-greedy quantifier.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
   </channel>
 </rss>
