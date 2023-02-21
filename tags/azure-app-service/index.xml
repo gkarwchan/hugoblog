@@ -6,18 +6,7 @@
     <description>Recent content in azure app service on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Feb 2023 20:20:40 -0700</lastBuildDate><atom:link href="/tags/azure-app-service/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</title>
-      <link>/posts/2023_02_01_introducing_kudu/</link>
-      <pubDate>Wed, 01 Feb 2023 20:20:40 -0700</pubDate>
-      
-      <guid>/posts/2023_02_01_introducing_kudu/</guid>
-      <description>If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
-Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
-When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment.</description>
-    </item>
-    
+    <lastBuildDate>Tue, 10 Jan 2023 20:00:24 -0700</lastBuildDate><atom:link href="/tags/azure-app-service/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</title>
       <link>/posts/2023_01_10_azure_networking_reciep_one/</link>

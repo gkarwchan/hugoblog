@@ -17,20 +17,11 @@
     </item>
     
     <item>
-      <title>azure security</title>
-      <link>/tags/azure-security/</link>
-      <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
+      <title>security</title>
+      <link>/tags/security/</link>
+      <pubDate>Sat, 04 Feb 2023 20:42:03 -0700</pubDate>
       
-      <guid>/tags/azure-security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>aks</title>
-      <link>/tags/aks/</link>
-      <pubDate>Thu, 02 Feb 2023 20:22:20 -0700</pubDate>
-      
-      <guid>/tags/aks/</guid>
+      <guid>/tags/security/</guid>
       <description></description>
     </item>
     
@@ -44,9 +35,18 @@
     </item>
     
     <item>
+      <title>container</title>
+      <link>/tags/container/</link>
+      <pubDate>Thu, 02 Feb 2023 20:22:20 -0700</pubDate>
+      
+      <guid>/tags/container/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>azure app service</title>
       <link>/tags/azure-app-service/</link>
-      <pubDate>Wed, 01 Feb 2023 20:20:40 -0700</pubDate>
+      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
       
       <guid>/tags/azure-app-service/</guid>
       <description></description>
@@ -94,6 +94,15 @@
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
       <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aks</title>
+      <link>/tags/aks/</link>
+      <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
+      
+      <guid>/tags/aks/</guid>
       <description></description>
     </item>
     

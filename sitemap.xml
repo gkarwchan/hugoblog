@@ -11,32 +11,32 @@
     <loc>/posts/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
+    <loc>/tags/security/</loc>
+    <lastmod>2023-02-04T20:42:03-07:00</lastmod>
+  </url><url>
     <loc>/tags/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
     <loc>/posts/2023_02_04_azure_keyvault_deployment/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/tags/azure-security/</loc>
-    <lastmod>2023-02-03T20:40:37-07:00</lastmod>
-  </url><url>
     <loc>/posts/2023_02_03_parse_sas_token_regex/</loc>
     <lastmod>2023-02-03T20:40:37-07:00</lastmod>
   </url><url>
-    <loc>/tags/aks/</loc>
+    <loc>/tags/asp.net/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
-    <loc>/tags/asp.net/</loc>
+    <loc>/tags/container/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
     <loc>/posts/2023_02_02_aspnet_watchdog/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
-    <loc>/tags/azure-app-service/</loc>
-    <lastmod>2023-02-01T20:20:40-07:00</lastmod>
-  </url><url>
     <loc>/posts/2023_02_01_introducing_kudu/</loc>
     <lastmod>2023-02-01T20:20:40-07:00</lastmod>
+  </url><url>
+    <loc>/tags/azure-app-service/</loc>
+    <lastmod>2023-01-10T20:00:24-07:00</lastmod>
   </url><url>
     <loc>/tags/azure-networking/</loc>
     <lastmod>2023-01-10T20:00:24-07:00</lastmod>
@@ -67,6 +67,9 @@
   </url><url>
     <loc>/posts/2022_12_29_devcontainer/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
+  </url><url>
+    <loc>/tags/aks/</loc>
+    <lastmod>2022-12-27T19:47:05-07:00</lastmod>
   </url><url>
     <loc>/tags/kubernetes-k8s/</loc>
     <lastmod>2022-12-27T19:47:05-07:00</lastmod>
