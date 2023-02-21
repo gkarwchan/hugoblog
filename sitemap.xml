@@ -104,7 +104,13 @@
     <loc>/tags/algorithm/</loc>
     <lastmod>2020-09-11T09:45:00+00:00</lastmod>
   </url><url>
+    <loc>/series/regular-expression-recipes/</loc>
+    <lastmod>2020-09-11T09:45:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/2020_09_11_regular_expression_extract_html_links/</loc>
+    <lastmod>2020-09-11T09:45:00+00:00</lastmod>
+  </url><url>
+    <loc>/series/</loc>
     <lastmod>2020-09-11T09:45:00+00:00</lastmod>
   </url><url>
     <loc>/posts/2020_05_08_regular_expression_extract_domain_names/</loc>
@@ -122,7 +128,5 @@
     <loc>/categories/</loc>
   </url><url>
     <loc>/tags/ci/cd/</loc>
-  </url><url>
-    <loc>/series/</loc>
   </url>
 </urlset>
