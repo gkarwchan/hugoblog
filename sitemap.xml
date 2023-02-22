@@ -26,20 +26,11 @@
     <loc>https://www.ghassan.page/tags/asp.net/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
-    <loc>https://www.ghassan.page/tags/container/</loc>
-    <lastmod>2023-02-02T20:22:20-07:00</lastmod>
-  </url><url>
     <loc>https://www.ghassan.page/posts/2023_02_02_aspnet_watchdog/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
     <loc>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</loc>
     <lastmod>2023-02-01T20:20:40-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/tags/azure-app-service/</loc>
-    <lastmod>2023-01-10T20:00:24-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/tags/azure-networking/</loc>
-    <lastmod>2023-01-10T20:00:24-07:00</lastmod>
   </url><url>
     <loc>https://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</loc>
     <lastmod>2023-01-10T20:00:24-07:00</lastmod>
@@ -47,32 +38,20 @@
     <loc>https://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/</loc>
     <lastmod>2023-01-08T20:07:36-07:00</lastmod>
   </url><url>
-    <loc>https://www.ghassan.page/tags/azure-static-web-app/</loc>
-    <lastmod>2023-01-08T19:58:31-07:00</lastmod>
-  </url><url>
     <loc>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</loc>
     <lastmod>2023-01-08T19:58:31-07:00</lastmod>
   </url><url>
     <loc>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</loc>
     <lastmod>2023-01-03T19:56:30-07:00</lastmod>
   </url><url>
-    <loc>https://www.ghassan.page/tags/.net/</loc>
+    <loc>https://www.ghassan.page/tags/container/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
   </url><url>
     <loc>https://www.ghassan.page/tags/dev-tools/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
   </url><url>
-    <loc>https://www.ghassan.page/tags/docker/</loc>
-    <lastmod>2022-12-29T19:51:56-07:00</lastmod>
-  </url><url>
     <loc>https://www.ghassan.page/posts/2022_12_29_devcontainer/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/tags/aks/</loc>
-    <lastmod>2022-12-27T19:47:05-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/tags/kubernetes-k8s/</loc>
-    <lastmod>2022-12-27T19:47:05-07:00</lastmod>
   </url><url>
     <loc>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</loc>
     <lastmod>2022-12-27T19:47:05-07:00</lastmod>

@@ -37,45 +37,9 @@
     <item>
       <title>container</title>
       <link>https://www.ghassan.page/tags/container/</link>
-      <pubDate>Thu, 02 Feb 2023 20:22:20 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/container/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>azure app service</title>
-      <link>https://www.ghassan.page/tags/azure-app-service/</link>
-      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/azure-app-service/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>azure networking</title>
-      <link>https://www.ghassan.page/tags/azure-networking/</link>
-      <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/azure-networking/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>azure static web app</title>
-      <link>https://www.ghassan.page/tags/azure-static-web-app/</link>
-      <pubDate>Sun, 08 Jan 2023 19:58:31 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/azure-static-web-app/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>.net</title>
-      <link>https://www.ghassan.page/tags/.net/</link>
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
-      <guid>https://www.ghassan.page/tags/.net/</guid>
+      <guid>https://www.ghassan.page/tags/container/</guid>
       <description></description>
     </item>
     
@@ -85,33 +49,6 @@
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
       <guid>https://www.ghassan.page/tags/dev-tools/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker</title>
-      <link>https://www.ghassan.page/tags/docker/</link>
-      <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>aks</title>
-      <link>https://www.ghassan.page/tags/aks/</link>
-      <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/aks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes-k8s</title>
-      <link>https://www.ghassan.page/tags/kubernetes-k8s/</link>
-      <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/tags/kubernetes-k8s/</guid>
       <description></description>
     </item>
     

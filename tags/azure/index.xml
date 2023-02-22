@@ -31,17 +31,6 @@ This is a JavaScript code that uses Regular Expression to parse he SAS token, an
     </item>
     
     <item>
-      <title>Implement a watchdog for your microservices using off-the-shelf ASP.Net Healthcheck UI.</title>
-      <link>https://www.ghassan.page/posts/2023_02_02_aspnet_watchdog/</link>
-      <pubDate>Thu, 02 Feb 2023 20:22:20 -0700</pubDate>
-      
-      <guid>https://www.ghassan.page/posts/2023_02_02_aspnet_watchdog/</guid>
-      <description>What is a watchdogA watchdog is a service that monitor other services and take actions when it detect a service is failing.
-ASP.NET starting from Core 5 has a built in UI module to monitor other services, and in few line of code you can build a watchdog for your services.
-How to hook it up with your services:Your microservices should implement health check endpoints to be monitored by the orchestration service (Kubernetes, docker storm, &amp;hellip; etc).</description>
-    </item>
-    
-    <item>
       <title>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</title>
       <link>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</link>
       <pubDate>Wed, 01 Feb 2023 20:20:40 -0700</pubDate>
@@ -71,12 +60,33 @@ When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for dep
     </item>
     
     <item>
+      <title>SPA routing and how to handle it with Azure Static Web app.</title>
+      <link>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</link>
+      <pubDate>Sun, 08 Jan 2023 19:58:31 -0700</pubDate>
+      
+      <guid>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</guid>
+      <description>If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&amp;hellip;, then you must be using their router to define your client side routing.
+But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application.</description>
+    </item>
+    
+    <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
       <link>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
       
       <guid>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</guid>
       <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
+    </item>
+    
+    <item>
+      <title>Prepare .NET core Microservice to be monitored by Kubernetes</title>
+      <link>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</link>
+      <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
+      
+      <guid>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</guid>
+      <description>Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
+Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
+liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready.</description>
     </item>
     
     <item>

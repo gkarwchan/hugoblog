@@ -19,6 +19,16 @@ How to hook it up with your services:Your microservices should implement health 
     </item>
     
     <item>
+      <title>Take your development environment anywhere and on any machine with Dev Containers</title>
+      <link>https://www.ghassan.page/posts/2022_12_29_devcontainer/</link>
+      <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
+      
+      <guid>https://www.ghassan.page/posts/2022_12_29_devcontainer/</guid>
+      <description>Dev containers provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.
+Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.</description>
+    </item>
+    
+    <item>
       <title>Prepare .NET core Microservice to be monitored by Kubernetes</title>
       <link>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</link>
       <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
