@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>azure static web app on Ghassan&#39;s Page</title>
-    <link>/tags/azure-static-web-app/</link>
+    <link>https://www.ghassan.page/tags/azure-static-web-app/</link>
     <description>Recent content in azure static web app on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 08 Jan 2023 19:58:31 -0700</lastBuildDate><atom:link href="/tags/azure-static-web-app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Jan 2023 19:58:31 -0700</lastBuildDate><atom:link href="https://www.ghassan.page/tags/azure-static-web-app/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SPA routing and how to handle it with Azure Static Web app.</title>
-      <link>/posts/2023_01_08_azure_static_webapp_routing/</link>
+      <link>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</link>
       <pubDate>Sun, 08 Jan 2023 19:58:31 -0700</pubDate>
       
-      <guid>/posts/2023_01_08_azure_static_webapp_routing/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</guid>
       <description>If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&amp;hellip;, then you must be using their router to define your client side routing.
 But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application.</description>
     </item>
     
     <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
-      <link>/posts/2023_01_03_azure_static_webapp_deployment/</link>
+      <link>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
       
-      <guid>/posts/2023_01_03_azure_static_webapp_deployment/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</guid>
       <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
     </item>
     

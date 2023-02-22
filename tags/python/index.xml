@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>python on Ghassan&#39;s Page</title>
-    <link>/tags/python/</link>
+    <link>https://www.ghassan.page/tags/python/</link>
     <description>Recent content in python on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="https://www.ghassan.page/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Memoization in Python and JavaScript</title>
-      <link>/posts/2020_09_20_memoization_python_javascript/</link>
+      <link>https://www.ghassan.page/posts/2020_09_20_memoization_python_javascript/</link>
       <pubDate>Sun, 20 Sep 2020 09:45:00 +0000</pubDate>
       
-      <guid>/posts/2020_09_20_memoization_python_javascript/</guid>
+      <guid>https://www.ghassan.page/posts/2020_09_20_memoization_python_javascript/</guid>
       <description>&lt;p&gt;Memoization is a technique that is used a lot in Dynamic Programming and in general to speed up algorithms.&lt;br&gt;
 Memoization is the same as caching but in functional programming. The Caching mechanism will store the data into a cache store, and that data can be from anywhere (HTTP page, REST call, &amp;hellip; etc) , where memoization is specific to cache the results of a function, and it create and maintain the store inside the function itself (so the function will be pure function) and send the store as a parameter into the function arguments.&lt;/p&gt;</description>
     </item>

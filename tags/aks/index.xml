@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aks on Ghassan&#39;s Page</title>
-    <link>/tags/aks/</link>
+    <link>https://www.ghassan.page/tags/aks/</link>
     <description>Recent content in aks on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Dec 2022 19:47:05 -0700</lastBuildDate><atom:link href="/tags/aks/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Dec 2022 19:47:05 -0700</lastBuildDate><atom:link href="https://www.ghassan.page/tags/aks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Prepare .NET core Microservice to be monitored by Kubernetes</title>
-      <link>/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</link>
+      <link>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</link>
       <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
       
-      <guid>/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</guid>
+      <guid>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</guid>
       <description>Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
 Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
 liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready.</description>
@@ -20,10 +20,10 @@ liveness: which monitor any deadlock, or the service is down, and Kubernetes wil
     
     <item>
       <title>How to fix common error using Azure Kubernetes AKS from WSL2</title>
-      <link>/posts/2022_12_27_fix_common_error_kubernets_wsl2/</link>
+      <link>https://www.ghassan.page/posts/2022_12_27_fix_common_error_kubernets_wsl2/</link>
       <pubDate>Tue, 27 Dec 2022 19:43:59 -0700</pubDate>
       
-      <guid>/posts/2022_12_27_fix_common_error_kubernets_wsl2/</guid>
+      <guid>https://www.ghassan.page/posts/2022_12_27_fix_common_error_kubernets_wsl2/</guid>
       <description>When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
 Let&amp;rsquo;s supposed you want to create a new cluster on AKS, as follows:
 1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use</description>

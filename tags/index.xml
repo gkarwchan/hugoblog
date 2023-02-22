@@ -2,161 +2,161 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Ghassan&#39;s Page</title>
-    <link>/tags/</link>
+    <link>https://www.ghassan.page/tags/</link>
     <description>Recent content in Tags on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="https://www.ghassan.page/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>azure</title>
-      <link>/tags/azure/</link>
+      <link>https://www.ghassan.page/tags/azure/</link>
       <pubDate>Sat, 04 Feb 2023 20:42:03 -0700</pubDate>
       
-      <guid>/tags/azure/</guid>
+      <guid>https://www.ghassan.page/tags/azure/</guid>
       <description></description>
     </item>
     
     <item>
       <title>security</title>
-      <link>/tags/security/</link>
+      <link>https://www.ghassan.page/tags/security/</link>
       <pubDate>Sat, 04 Feb 2023 20:42:03 -0700</pubDate>
       
-      <guid>/tags/security/</guid>
+      <guid>https://www.ghassan.page/tags/security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>asp.net</title>
-      <link>/tags/asp.net/</link>
+      <link>https://www.ghassan.page/tags/asp.net/</link>
       <pubDate>Thu, 02 Feb 2023 20:22:20 -0700</pubDate>
       
-      <guid>/tags/asp.net/</guid>
+      <guid>https://www.ghassan.page/tags/asp.net/</guid>
       <description></description>
     </item>
     
     <item>
       <title>container</title>
-      <link>/tags/container/</link>
+      <link>https://www.ghassan.page/tags/container/</link>
       <pubDate>Thu, 02 Feb 2023 20:22:20 -0700</pubDate>
       
-      <guid>/tags/container/</guid>
+      <guid>https://www.ghassan.page/tags/container/</guid>
       <description></description>
     </item>
     
     <item>
       <title>azure app service</title>
-      <link>/tags/azure-app-service/</link>
+      <link>https://www.ghassan.page/tags/azure-app-service/</link>
       <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
       
-      <guid>/tags/azure-app-service/</guid>
+      <guid>https://www.ghassan.page/tags/azure-app-service/</guid>
       <description></description>
     </item>
     
     <item>
       <title>azure networking</title>
-      <link>/tags/azure-networking/</link>
+      <link>https://www.ghassan.page/tags/azure-networking/</link>
       <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
       
-      <guid>/tags/azure-networking/</guid>
+      <guid>https://www.ghassan.page/tags/azure-networking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>azure static web app</title>
-      <link>/tags/azure-static-web-app/</link>
+      <link>https://www.ghassan.page/tags/azure-static-web-app/</link>
       <pubDate>Sun, 08 Jan 2023 19:58:31 -0700</pubDate>
       
-      <guid>/tags/azure-static-web-app/</guid>
+      <guid>https://www.ghassan.page/tags/azure-static-web-app/</guid>
       <description></description>
     </item>
     
     <item>
       <title>.net</title>
-      <link>/tags/.net/</link>
+      <link>https://www.ghassan.page/tags/.net/</link>
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
-      <guid>/tags/.net/</guid>
+      <guid>https://www.ghassan.page/tags/.net/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dev tools</title>
-      <link>/tags/dev-tools/</link>
+      <link>https://www.ghassan.page/tags/dev-tools/</link>
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
-      <guid>/tags/dev-tools/</guid>
+      <guid>https://www.ghassan.page/tags/dev-tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>/tags/docker/</link>
+      <link>https://www.ghassan.page/tags/docker/</link>
       <pubDate>Thu, 29 Dec 2022 19:51:56 -0700</pubDate>
       
-      <guid>/tags/docker/</guid>
+      <guid>https://www.ghassan.page/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aks</title>
-      <link>/tags/aks/</link>
+      <link>https://www.ghassan.page/tags/aks/</link>
       <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
       
-      <guid>/tags/aks/</guid>
+      <guid>https://www.ghassan.page/tags/aks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes-k8s</title>
-      <link>/tags/kubernetes-k8s/</link>
+      <link>https://www.ghassan.page/tags/kubernetes-k8s/</link>
       <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
       
-      <guid>/tags/kubernetes-k8s/</guid>
+      <guid>https://www.ghassan.page/tags/kubernetes-k8s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>javascript</title>
-      <link>/tags/javascript/</link>
+      <link>https://www.ghassan.page/tags/javascript/</link>
       <pubDate>Wed, 23 Dec 2020 16:02:54 -0700</pubDate>
       
-      <guid>/tags/javascript/</guid>
+      <guid>https://www.ghassan.page/tags/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>performance</title>
-      <link>/tags/performance/</link>
+      <link>https://www.ghassan.page/tags/performance/</link>
       <pubDate>Sun, 20 Sep 2020 09:45:00 +0000</pubDate>
       
-      <guid>/tags/performance/</guid>
+      <guid>https://www.ghassan.page/tags/performance/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
-      <link>/tags/python/</link>
+      <link>https://www.ghassan.page/tags/python/</link>
       <pubDate>Sun, 20 Sep 2020 09:45:00 +0000</pubDate>
       
-      <guid>/tags/python/</guid>
+      <guid>https://www.ghassan.page/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>algorithm</title>
-      <link>/tags/algorithm/</link>
+      <link>https://www.ghassan.page/tags/algorithm/</link>
       <pubDate>Fri, 11 Sep 2020 09:45:00 +0000</pubDate>
       
-      <guid>/tags/algorithm/</guid>
+      <guid>https://www.ghassan.page/tags/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ci/cd</title>
-      <link>/tags/ci/cd/</link>
+      <link>https://www.ghassan.page/tags/ci/cd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ci/cd/</guid>
+      <guid>https://www.ghassan.page/tags/ci/cd/</guid>
       <description></description>
     </item>
     

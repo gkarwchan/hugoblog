@@ -2,131 +2,131 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/tags/azure/</loc>
+    <loc>https://www.ghassan.page/tags/azure/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>https://www.ghassan.page/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
+    <loc>https://www.ghassan.page/posts/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/tags/security/</loc>
+    <loc>https://www.ghassan.page/tags/security/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://www.ghassan.page/tags/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_02_04_azure_keyvault_deployment/</loc>
+    <loc>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</loc>
     <lastmod>2023-02-04T20:42:03-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_02_03_parse_sas_token_regex/</loc>
+    <loc>https://www.ghassan.page/posts/2023_02_03_parse_sas_token_regex/</loc>
     <lastmod>2023-02-03T20:40:37-07:00</lastmod>
   </url><url>
-    <loc>/tags/asp.net/</loc>
+    <loc>https://www.ghassan.page/tags/asp.net/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
-    <loc>/tags/container/</loc>
+    <loc>https://www.ghassan.page/tags/container/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_02_02_aspnet_watchdog/</loc>
+    <loc>https://www.ghassan.page/posts/2023_02_02_aspnet_watchdog/</loc>
     <lastmod>2023-02-02T20:22:20-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_02_01_introducing_kudu/</loc>
+    <loc>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</loc>
     <lastmod>2023-02-01T20:20:40-07:00</lastmod>
   </url><url>
-    <loc>/tags/azure-app-service/</loc>
+    <loc>https://www.ghassan.page/tags/azure-app-service/</loc>
     <lastmod>2023-01-10T20:00:24-07:00</lastmod>
   </url><url>
-    <loc>/tags/azure-networking/</loc>
+    <loc>https://www.ghassan.page/tags/azure-networking/</loc>
     <lastmod>2023-01-10T20:00:24-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_01_10_azure_networking_reciep_one/</loc>
+    <loc>https://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</loc>
     <lastmod>2023-01-10T20:00:24-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_01_09_introduction_azure_networking/</loc>
+    <loc>https://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/</loc>
     <lastmod>2023-01-08T20:07:36-07:00</lastmod>
   </url><url>
-    <loc>/tags/azure-static-web-app/</loc>
+    <loc>https://www.ghassan.page/tags/azure-static-web-app/</loc>
     <lastmod>2023-01-08T19:58:31-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_01_08_azure_static_webapp_routing/</loc>
+    <loc>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</loc>
     <lastmod>2023-01-08T19:58:31-07:00</lastmod>
   </url><url>
-    <loc>/posts/2023_01_03_azure_static_webapp_deployment/</loc>
+    <loc>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</loc>
     <lastmod>2023-01-03T19:56:30-07:00</lastmod>
   </url><url>
-    <loc>/tags/.net/</loc>
+    <loc>https://www.ghassan.page/tags/.net/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
   </url><url>
-    <loc>/tags/dev-tools/</loc>
+    <loc>https://www.ghassan.page/tags/dev-tools/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
   </url><url>
-    <loc>/tags/docker/</loc>
+    <loc>https://www.ghassan.page/tags/docker/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
   </url><url>
-    <loc>/posts/2022_12_29_devcontainer/</loc>
+    <loc>https://www.ghassan.page/posts/2022_12_29_devcontainer/</loc>
     <lastmod>2022-12-29T19:51:56-07:00</lastmod>
   </url><url>
-    <loc>/tags/aks/</loc>
+    <loc>https://www.ghassan.page/tags/aks/</loc>
     <lastmod>2022-12-27T19:47:05-07:00</lastmod>
   </url><url>
-    <loc>/tags/kubernetes-k8s/</loc>
+    <loc>https://www.ghassan.page/tags/kubernetes-k8s/</loc>
     <lastmod>2022-12-27T19:47:05-07:00</lastmod>
   </url><url>
-    <loc>/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</loc>
+    <loc>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</loc>
     <lastmod>2022-12-27T19:47:05-07:00</lastmod>
   </url><url>
-    <loc>/posts/2022_12_27_fix_common_error_kubernets_wsl2/</loc>
+    <loc>https://www.ghassan.page/posts/2022_12_27_fix_common_error_kubernets_wsl2/</loc>
     <lastmod>2022-12-27T19:43:59-07:00</lastmod>
   </url><url>
-    <loc>/posts/2022_12_19_aspnet_minimal_api/</loc>
+    <loc>https://www.ghassan.page/posts/2022_12_19_aspnet_minimal_api/</loc>
     <lastmod>2022-12-19T19:15:28-07:00</lastmod>
   </url><url>
-    <loc>/posts/2022_11_28_use_secret_manager_in_dotnet/</loc>
+    <loc>https://www.ghassan.page/posts/2022_11_28_use_secret_manager_in_dotnet/</loc>
     <lastmod>2022-11-28T19:41:04-07:00</lastmod>
   </url><url>
-    <loc>/tags/javascript/</loc>
+    <loc>https://www.ghassan.page/tags/javascript/</loc>
     <lastmod>2020-12-23T16:02:54-07:00</lastmod>
   </url><url>
-    <loc>/posts/2020_12_23_no_more_js_transpiler/</loc>
+    <loc>https://www.ghassan.page/posts/2020_12_23_no_more_js_transpiler/</loc>
     <lastmod>2020-12-23T16:02:54-07:00</lastmod>
   </url><url>
-    <loc>/posts/2020_09_20_memoization_python_javascript/</loc>
+    <loc>https://www.ghassan.page/posts/2020_09_20_memoization_python_javascript/</loc>
     <lastmod>2020-09-20T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/performance/</loc>
+    <loc>https://www.ghassan.page/tags/performance/</loc>
     <lastmod>2020-09-20T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/python/</loc>
+    <loc>https://www.ghassan.page/tags/python/</loc>
     <lastmod>2020-09-20T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/algorithm/</loc>
+    <loc>https://www.ghassan.page/tags/algorithm/</loc>
     <lastmod>2020-09-11T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/series/regular-expression-recipes/</loc>
+    <loc>https://www.ghassan.page/series/regular-expression-recipes/</loc>
     <lastmod>2020-09-11T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/2020_09_11_regular_expression_extract_html_links/</loc>
+    <loc>https://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</loc>
     <lastmod>2020-09-11T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/series/</loc>
+    <loc>https://www.ghassan.page/series/</loc>
     <lastmod>2020-09-11T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/2020_05_08_regular_expression_extract_domain_names/</loc>
+    <loc>https://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</loc>
     <lastmod>2020-05-08T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/2020_05_07_regular_expression_extract_comments_from_code/</loc>
+    <loc>https://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</loc>
     <lastmod>2020-05-07T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/2020_05_06_advanced_regular_expression_by_examples/</loc>
+    <loc>https://www.ghassan.page/posts/2020_05_06_advanced_regular_expression_by_examples/</loc>
     <lastmod>2020-05-06T09:45:00+00:00</lastmod>
   </url><url>
-    <loc>/about/</loc>
+    <loc>https://www.ghassan.page/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>https://www.ghassan.page/categories/</loc>
   </url><url>
-    <loc>/tags/ci/cd/</loc>
+    <loc>https://www.ghassan.page/tags/ci/cd/</loc>
   </url>
 </urlset>

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ci/cd on Ghassan&#39;s Page</title>
-    <link>/tags/ci/cd/</link>
+    <link>https://www.ghassan.page/tags/ci/cd/</link>
     <description>Recent content in ci/cd on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://www.ghassan.page/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Use Azure Key Vault to retrieve secured parameters during  Azure deployment.</title>
-      <link>/posts/2023_02_04_azure_keyvault_deployment/</link>
+      <link>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</link>
       <pubDate>Sat, 04 Feb 2023 20:42:03 -0700</pubDate>
       
-      <guid>/posts/2023_02_04_azure_keyvault_deployment/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</guid>
       <description>You have an ARM template to deploy, and you need to pass secure parameters. Instead of storing secure values in the parameter file, you can just retrieve these values from Key Vault.
 To be able to access the key vault by the resource manager you need to change access policy to allow &amp;ldquo;Azure Resource Manager for template deployment&amp;rdquo;, as shown here.
 Or you can do it from Powershell:
@@ -20,10 +20,10 @@ Or you can do it from Powershell:
     
     <item>
       <title>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</title>
-      <link>/posts/2023_02_01_introducing_kudu/</link>
+      <link>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</link>
       <pubDate>Wed, 01 Feb 2023 20:20:40 -0700</pubDate>
       
-      <guid>/posts/2023_02_01_introducing_kudu/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</guid>
       <description>If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
 Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
 When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment.</description>
@@ -31,10 +31,10 @@ When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for dep
     
     <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
-      <link>/posts/2023_01_03_azure_static_webapp_deployment/</link>
+      <link>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
       
-      <guid>/posts/2023_01_03_azure_static_webapp_deployment/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</guid>
       <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
     </item>
     
