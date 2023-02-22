@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on Ghassan&#39;s Page</title>
-    <link>/series/</link>
+    <link>https://www.ghassan.page/series/</link>
     <description>Recent content in Series on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="/series/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="https://www.ghassan.page/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>regular expression recipes</title>
-      <link>/series/regular-expression-recipes/</link>
+      <link>https://www.ghassan.page/series/regular-expression-recipes/</link>
       <pubDate>Fri, 11 Sep 2020 09:45:00 +0000</pubDate>
       
-      <guid>/series/regular-expression-recipes/</guid>
+      <guid>https://www.ghassan.page/series/regular-expression-recipes/</guid>
       <description></description>
     </item>
     

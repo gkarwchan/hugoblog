@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>azure on Ghassan&#39;s Page</title>
-    <link>/tags/azure/</link>
+    <link>https://www.ghassan.page/tags/azure/</link>
     <description>Recent content in azure on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="/tags/azure/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="https://www.ghassan.page/tags/azure/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Use Azure Key Vault to retrieve secured parameters during  Azure deployment.</title>
-      <link>/posts/2023_02_04_azure_keyvault_deployment/</link>
+      <link>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</link>
       <pubDate>Sat, 04 Feb 2023 20:42:03 -0700</pubDate>
       
-      <guid>/posts/2023_02_04_azure_keyvault_deployment/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</guid>
       <description>You have an ARM template to deploy, and you need to pass secure parameters. Instead of storing secure values in the parameter file, you can just retrieve these values from Key Vault.
 To be able to access the key vault by the resource manager you need to change access policy to allow &amp;ldquo;Azure Resource Manager for template deployment&amp;rdquo;, as shown here.
 Or you can do it from Powershell:
@@ -21,10 +21,10 @@ Or you can do it from Powershell:
     
     <item>
       <title>Parse Azure SAS token using regular expression</title>
-      <link>/posts/2023_02_03_parse_sas_token_regex/</link>
+      <link>https://www.ghassan.page/posts/2023_02_03_parse_sas_token_regex/</link>
       <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
       
-      <guid>/posts/2023_02_03_parse_sas_token_regex/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_03_parse_sas_token_regex/</guid>
       <description>If you have an Azure SAS token that is not working, it is good idea to parse it and understand what permissions and values it contains.
 This is a JavaScript code that uses Regular Expression to parse he SAS token, and an running example where you can try your own SAS token.
 1var paramNames = { 2 sig: &amp;#39;cryptographic signature&amp;#39;, 3 st: &amp;#39;start time&amp;#39;, 4 se: &amp;#39;end time&amp;#39;, 5 spr: &amp;#39;protocol&amp;#39;, 6 srt: &amp;#39;resource types&amp;#39;, 7 sv: &amp;#39;version&amp;#39;, 8 sp: &amp;#39;permissions&amp;#39;, 9 ss: &amp;#39;services&amp;#39; 10}; 11 12let valueLookups = { 13 sp : { 14 r: &amp;#39;read&amp;#39;, d: &amp;#39;delete&amp;#39;, w: &amp;#39;write&amp;#39;, l: &amp;#39;list&amp;#39;, a: &amp;#39;add&amp;#39;, 15 c: &amp;#39;create&amp;#39;, u: &amp;#39;update&amp;#39;, p: &amp;#39;process&amp;#39;, f: &amp;#39;filter&amp;#39; 16 }, 17 srt: { 18 s: &amp;#39;service&amp;#39;, c: &amp;#39;container&amp;#39;, o: &amp;#39;object&amp;#39; 19 }, 20 ss : { 21 b: &amp;#39;blob&amp;#39;, f: &amp;#39;file&amp;#39;, q: &amp;#39;queue&amp;#39;, t: &amp;#39;table&amp;#39; 22 } 23} 24 25let valueConvertor = (key, inputValue) =&amp;gt; 26 valueLookups[key] ?</description>
@@ -32,10 +32,10 @@ This is a JavaScript code that uses Regular Expression to parse he SAS token, an
     
     <item>
       <title>Introducing Kudu, the engine that handle all web application deployment to Azure App Service.</title>
-      <link>/posts/2023_02_01_introducing_kudu/</link>
+      <link>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</link>
       <pubDate>Wed, 01 Feb 2023 20:20:40 -0700</pubDate>
       
-      <guid>/posts/2023_02_01_introducing_kudu/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_01_introducing_kudu/</guid>
       <description>If you follow any tutorials on Azure App Service, you will find that they use one of five options to deploy a web application to the Azure.
 Using Azure DevOps Using Github actions and webhooks. FTP Zip Deploy. MSDeploy (Microsoft Web Deploy tool). But behind the scenes, all these options are using the same back engine, which is Kudu.
 When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for deployment.</description>
@@ -43,47 +43,47 @@ When we use FTP, Zip, or MSDeploy, we are actually calling Kudu REST API for dep
     
     <item>
       <title>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</title>
-      <link>/posts/2023_01_10_azure_networking_reciep_one/</link>
+      <link>https://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</link>
       <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
       
-      <guid>/posts/2023_01_10_azure_networking_reciep_one/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</guid>
       <description>If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage.</description>
     </item>
     
     <item>
       <title>A developer introduction to cloud networking</title>
-      <link>/posts/2023_01_09_introduction_azure_networking/</link>
+      <link>https://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/</link>
       <pubDate>Sun, 08 Jan 2023 20:07:36 -0700</pubDate>
       
-      <guid>/posts/2023_01_09_introduction_azure_networking/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_09_introduction_azure_networking/</guid>
       <description>As a developer who dealt with the cloud, either to create a virtual machine, or to deploy a website that connect to a database, then most probabely you had to deal even in short with a private network. And most of us developers don&amp;rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking.</description>
     </item>
     
     <item>
       <title>SPA routing and how to handle it with Azure Static Web app.</title>
-      <link>/posts/2023_01_08_azure_static_webapp_routing/</link>
+      <link>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</link>
       <pubDate>Sun, 08 Jan 2023 19:58:31 -0700</pubDate>
       
-      <guid>/posts/2023_01_08_azure_static_webapp_routing/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_08_azure_static_webapp_routing/</guid>
       <description>If you built a SPA application using one of the modern SPA frameworks like React, Vue, Angular&amp;hellip;, then you must be using their router to define your client side routing.
 But you need to make a small adjustment on the server that serve your static application in order to deal with client routing gracefully, and this small adjustment is to tell the server to have a fall back on any route that is not recognized by the server to the root of the application.</description>
     </item>
     
     <item>
       <title>Deploy A Single Page Application to Azure Static Webapp using TeamCity, Jenkins or any CI, or command line</title>
-      <link>/posts/2023_01_03_azure_static_webapp_deployment/</link>
+      <link>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</link>
       <pubDate>Tue, 03 Jan 2023 19:56:30 -0700</pubDate>
       
-      <guid>/posts/2023_01_03_azure_static_webapp_deployment/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_03_azure_static_webapp_deployment/</guid>
       <description>I was trying to setup a deployment for an SPA application to an Azure Static Web app using TeamCity, but most of the tutorials I found was doing the deployment through CI/CD of Github&amp;rsquo;s Actions by monitoring a specific branch of a Github repository and deploy automatically whenever we check in into that branch, or the other alternative is using Azure DevOps pipeline. But what if we don&amp;rsquo;t want to use neither, and instead we need to do it on demand from TeamCity, or any other CI/CD tool?</description>
     </item>
     
     <item>
       <title>Prepare .NET core Microservice to be monitored by Kubernetes</title>
-      <link>/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</link>
+      <link>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</link>
       <pubDate>Tue, 27 Dec 2022 19:47:05 -0700</pubDate>
       
-      <guid>/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</guid>
+      <guid>https://www.ghassan.page/posts/2022-12-28_prepare_aspnet_api_monitored_by_k8s/</guid>
       <description>Kubernetes Monitoring:Kubernetes monitors the deployed microservices and check if any failure or a deadlock that makes the service not responding in order to restart the hosting container.
 Kubernetes achieve this by calling three different probes that determine the status of the container/pod. The three probes are:
 liveness: which monitor any deadlock, or the service is down, and Kubernetes will remove the dead container and restart another one. startup: Your service might need time at startup to wait for all its dependencies to be ready.</description>
@@ -91,10 +91,10 @@ liveness: which monitor any deadlock, or the service is down, and Kubernetes wil
     
     <item>
       <title>How to fix common error using Azure Kubernetes AKS from WSL2</title>
-      <link>/posts/2022_12_27_fix_common_error_kubernets_wsl2/</link>
+      <link>https://www.ghassan.page/posts/2022_12_27_fix_common_error_kubernets_wsl2/</link>
       <pubDate>Tue, 27 Dec 2022 19:43:59 -0700</pubDate>
       
-      <guid>/posts/2022_12_27_fix_common_error_kubernets_wsl2/</guid>
+      <guid>https://www.ghassan.page/posts/2022_12_27_fix_common_error_kubernets_wsl2/</guid>
       <description>When you use Kubernetes CLI tool: kubectl that is installed while you installed Docker Desktop for Windows, there is a small glitch that it will fail the kubectl commands, because of Kubeconfig file.
 Let&amp;rsquo;s supposed you want to create a new cluster on AKS, as follows:
 1az aks create --resource-group MyResourceGropu --name MyMicroserviceCluster --node-count 1 --enable-addons http_application_routing --generate-ssh-keys And then you need to set that new cluster as your default cluster to work on, so you use</description>

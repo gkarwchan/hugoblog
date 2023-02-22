@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>algorithm on Ghassan&#39;s Page</title>
-    <link>/tags/algorithm/</link>
+    <link>https://www.ghassan.page/tags/algorithm/</link>
     <description>Recent content in algorithm on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Sep 2020 09:45:00 +0000</lastBuildDate><atom:link href="https://www.ghassan.page/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Regular expression: Extract HTML Links</title>
-      <link>/posts/2020_09_11_regular_expression_extract_html_links/</link>
+      <link>https://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</link>
       <pubDate>Fri, 11 Sep 2020 09:45:00 +0000</pubDate>
       
-      <guid>/posts/2020_09_11_regular_expression_extract_html_links/</guid>
+      <guid>https://www.ghassan.page/posts/2020_09_11_regular_expression_extract_html_links/</guid>
       <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical recipes:&lt;br&gt;
 In this recipe we are going to cover:&lt;/p&gt;
 &lt;ul&gt;
@@ -25,10 +25,10 @@ In this recipe we are going to cover:&lt;/p&gt;
     
     <item>
       <title>Regular expression: Extract Domain Names</title>
-      <link>/posts/2020_05_08_regular_expression_extract_domain_names/</link>
+      <link>https://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</link>
       <pubDate>Fri, 08 May 2020 09:45:00 +0000</pubDate>
       
-      <guid>/posts/2020_05_08_regular_expression_extract_domain_names/</guid>
+      <guid>https://www.ghassan.page/posts/2020_05_08_regular_expression_extract_domain_names/</guid>
       <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical recipes:&lt;br&gt;
 In this recipe we are going to cover:&lt;/p&gt;
 &lt;ul&gt;
@@ -40,10 +40,10 @@ In this recipe we are going to cover:&lt;/p&gt;
     
     <item>
       <title>Regular expression: Extract Comments From Code</title>
-      <link>/posts/2020_05_07_regular_expression_extract_comments_from_code/</link>
+      <link>https://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</link>
       <pubDate>Thu, 07 May 2020 09:45:00 +0000</pubDate>
       
-      <guid>/posts/2020_05_07_regular_expression_extract_comments_from_code/</guid>
+      <guid>https://www.ghassan.page/posts/2020_05_07_regular_expression_extract_comments_from_code/</guid>
       <description>&lt;p&gt;Explain advanced concepts of Regular Expressions through practical receipes:&lt;br&gt;
 In this recipe we are going to cover:&lt;/p&gt;
 &lt;ul&gt;
@@ -55,10 +55,10 @@ In this recipe we are going to cover:&lt;/p&gt;
     
     <item>
       <title>Advanced Regular Expression Recipes - Introduction.</title>
-      <link>/posts/2020_05_06_advanced_regular_expression_by_examples/</link>
+      <link>https://www.ghassan.page/posts/2020_05_06_advanced_regular_expression_by_examples/</link>
       <pubDate>Wed, 06 May 2020 09:45:00 +0000</pubDate>
       
-      <guid>/posts/2020_05_06_advanced_regular_expression_by_examples/</guid>
+      <guid>https://www.ghassan.page/posts/2020_05_06_advanced_regular_expression_by_examples/</guid>
       <description>&lt;p&gt;Regular expressions are implemented by many languages, and they can be used for different purposes. Mainly they are used for text processing, as well they are important tools to write an efficient algorithms, and as well they can be used by data science specially in cleaning and scrapping the data to prepare it for modeling.&lt;/p&gt;</description>
     </item>
     

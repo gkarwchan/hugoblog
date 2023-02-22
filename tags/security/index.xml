@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>security on Ghassan&#39;s Page</title>
-    <link>/tags/security/</link>
+    <link>https://www.ghassan.page/tags/security/</link>
     <description>Recent content in security on Ghassan&#39;s Page</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 20:42:03 -0700</lastBuildDate><atom:link href="https://www.ghassan.page/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Use Azure Key Vault to retrieve secured parameters during  Azure deployment.</title>
-      <link>/posts/2023_02_04_azure_keyvault_deployment/</link>
+      <link>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</link>
       <pubDate>Sat, 04 Feb 2023 20:42:03 -0700</pubDate>
       
-      <guid>/posts/2023_02_04_azure_keyvault_deployment/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_04_azure_keyvault_deployment/</guid>
       <description>You have an ARM template to deploy, and you need to pass secure parameters. Instead of storing secure values in the parameter file, you can just retrieve these values from Key Vault.
 To be able to access the key vault by the resource manager you need to change access policy to allow &amp;ldquo;Azure Resource Manager for template deployment&amp;rdquo;, as shown here.
 Or you can do it from Powershell:
@@ -21,10 +21,10 @@ Or you can do it from Powershell:
     
     <item>
       <title>Parse Azure SAS token using regular expression</title>
-      <link>/posts/2023_02_03_parse_sas_token_regex/</link>
+      <link>https://www.ghassan.page/posts/2023_02_03_parse_sas_token_regex/</link>
       <pubDate>Fri, 03 Feb 2023 20:40:37 -0700</pubDate>
       
-      <guid>/posts/2023_02_03_parse_sas_token_regex/</guid>
+      <guid>https://www.ghassan.page/posts/2023_02_03_parse_sas_token_regex/</guid>
       <description>If you have an Azure SAS token that is not working, it is good idea to parse it and understand what permissions and values it contains.
 This is a JavaScript code that uses Regular Expression to parse he SAS token, and an running example where you can try your own SAS token.
 1var paramNames = { 2 sig: &amp;#39;cryptographic signature&amp;#39;, 3 st: &amp;#39;start time&amp;#39;, 4 se: &amp;#39;end time&amp;#39;, 5 spr: &amp;#39;protocol&amp;#39;, 6 srt: &amp;#39;resource types&amp;#39;, 7 sv: &amp;#39;version&amp;#39;, 8 sp: &amp;#39;permissions&amp;#39;, 9 ss: &amp;#39;services&amp;#39; 10}; 11 12let valueLookups = { 13 sp : { 14 r: &amp;#39;read&amp;#39;, d: &amp;#39;delete&amp;#39;, w: &amp;#39;write&amp;#39;, l: &amp;#39;list&amp;#39;, a: &amp;#39;add&amp;#39;, 15 c: &amp;#39;create&amp;#39;, u: &amp;#39;update&amp;#39;, p: &amp;#39;process&amp;#39;, f: &amp;#39;filter&amp;#39; 16 }, 17 srt: { 18 s: &amp;#39;service&amp;#39;, c: &amp;#39;container&amp;#39;, o: &amp;#39;object&amp;#39; 19 }, 20 ss : { 21 b: &amp;#39;blob&amp;#39;, f: &amp;#39;file&amp;#39;, q: &amp;#39;queue&amp;#39;, t: &amp;#39;table&amp;#39; 22 } 23} 24 25let valueConvertor = (key, inputValue) =&amp;gt; 26 valueLookups[key] ?</description>
@@ -32,10 +32,10 @@ This is a JavaScript code that uses Regular Expression to parse he SAS token, an
     
     <item>
       <title>Azure Networking Recipes - Connect Azure Database and an Azure App Service using Virtual Network.</title>
-      <link>/posts/2023_01_10_azure_networking_reciep_one/</link>
+      <link>https://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</link>
       <pubDate>Tue, 10 Jan 2023 20:00:24 -0700</pubDate>
       
-      <guid>/posts/2023_01_10_azure_networking_reciep_one/</guid>
+      <guid>https://www.ghassan.page/posts/2023_01_10_azure_networking_reciep_one/</guid>
       <description>If your application is connecting to Azure database, or any other resources, then connecting them through Virtual Network (VNet) will enhance the performance (assuming the app service and the resources are in the same region), as well it enhance the security and we can lock the resources to have private endpoint, and not accessed publicly. I am going to go through a walk-through tutorial, using Azure Sql Server as an example, but this can work with any database on Azure, or even any resources like blob storage.</description>
     </item>
     
