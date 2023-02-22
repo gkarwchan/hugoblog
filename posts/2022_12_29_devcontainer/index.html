@@ -202,8 +202,8 @@ Dev containers allow you to create a docker container that will host all the dev
               col-lg-8 col-lg-offset-2
               col-md-10 col-md-offset-1
               post-container">
-        <p><a href="https://containers.dev/" target="_blank">Dev containers</a> provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.</p>
-<p>Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.  And even if you don&rsquo;t have a compatible IDE, then you can run it inside <a href="https://github.com/features/codespaces" target="_blank">github&rsquo;s codespaces</a>, which is compatible with Dev container.</p>
+        <p><a href="https://containers.dev/">Dev containers</a> provides a fantastic way to onboard a new developer up and running in matter of just clone the git repository.</p>
+<p>Dev containers allow you to create a docker container that will host all the development tools and libraries you use in your projects, and run it inside the container, and if you have an editor compatible then you can make the IDE connect to the containers and you can run or debug your code inside the containers.  And even if you don&rsquo;t have a compatible IDE, then you can run it inside <a href="https://github.com/features/codespaces">github&rsquo;s codespaces</a>, which is compatible with Dev container.</p>
 <h2 id="how-to-setup-dev-container">How to setup Dev container?<a class="anchorjs-link" href="#how-to-setup-dev-container"></a></h2><p>All you need is to create a json file called <strong><code>devcontainer.json</code></strong> and an optional Dockerfile, which you add all your tools, software, and libraries (for example dotnet SDK, SQL server, redis&hellip;)</p>
 <h2 id="how-developers-use-it">How developers use it?<a class="anchorjs-link" href="#how-developers-use-it"></a></h2><p>A new developer only needs a compatible IDE installed on their machine, and docker desktop of course.<br>
 Even a developer can work on github&rsquo;s codespaces, and this way they can take their environment anywhere they want, and on any machine.<br>
@@ -219,9 +219,9 @@ Right now the only IDE that work with dev containers are Microsoft Visual Studio
 <li>Or you build your own environment from scratch.</li>
 </ol>
 <h4 id="predefined-templated">Predefined templated:<a class="anchorjs-link" href="#predefined-templated"></a></h4><p>There are already of the shelf Dev docker images for common development environment. For example there is one for dotnet, and other for Java, and other for Node.<br>
-For a list of the pre-built templates <a href="https://containers.dev/templates" target="_blank">check here</a>.<br>
+For a list of the pre-built templates <a href="https://containers.dev/templates">check here</a>.<br>
 Using a pre-built dev container doesn&rsquo;t mean you are only limited to that image, because you can still add other tools, which they are called <strong><code>features</code></strong> to that image.<br>
-, and for the other <code>features</code> that you can add <a href="https://containers.dev/features" target="_blank">check this</a>.</p>
+, and for the other <code>features</code> that you can add <a href="https://containers.dev/features">check this</a>.</p>
 <p>You don&rsquo;t need a Docker file, unless you want to build your dev environment step by step.</p>
 <p>For example, I am going to build a dev container for dotnet sdk 6, with Azure cli, and bash command.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>{
@@ -231,7 +231,7 @@ Using a pre-built dev container doesn&rsquo;t mean you are only limited to that 
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>        <span style="color:#ff79c6">&#34;ghcr.io/devcontainers/features/azure-cli:1&#34;</span>: {},
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>	<span style="color:#ff79c6">&#34;ghcr.io/devcontainers-contrib/features/bash-command:1&#34;</span>: {}
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>}
-</span></span></code></pre></div><p>For a detailed attributes and syntax for this file, <a href="https://containers.dev/implementors/json_reference/" target="_blank">refer to this document</a>.</p>
+</span></span></code></pre></div><p>For a detailed attributes and syntax for this file, <a href="https://containers.dev/implementors/json_reference/">refer to this document</a>.</p>
 <p>If you prefer to build your own environment from scratch, then you should write a docker file, and in that case your devcontainer.json file will look like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>{
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;my dotnet environment&#34;</span>,
@@ -246,7 +246,7 @@ Using a pre-built dev container doesn&rsquo;t mean you are only limited to that 
 <li>Visual Studio</li>
 </ul>
 <p>Or alternatively you can use github&rsquo;s codespaces, and then you can run your code from any browser on any device.<br>
-For visual studio code, you need to install <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers" target="_blank">an extension to run create and integrate with dev containers</a>.<br>
+For visual studio code, you need to install <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers">an extension to run create and integrate with dev containers</a>.<br>
 When you open a folder that contains a dev container, VS code automatically prompt you an option to open the folder to develop in container.</p>
 <p>![Visual studio code prompt for dev container](<figure>
   <a class="paragraph-image">

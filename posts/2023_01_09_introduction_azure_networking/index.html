@@ -199,7 +199,7 @@
 And most of us developers don&rsquo;t know a lot about networking, because it is either the job of dev-ops or system administrator. But on the cloud you find that you have to take some decisions related to the networking.
 This post is an introduction for developers who know very little about the cloud, and will cover enough information to help you understand how to take better decisions.</p>
 <h3 id="introduction-to-private-networks">Introduction to private networks:<a class="anchorjs-link" href="#introduction-to-private-networks"></a></h3><p>Amazon has the Virtual Private Cloud (VPC), and Azure has its equivalent the Virtual Network (VN). Both let you isolate many resources (databases, file storage, API servers….) into their own private network that is protected (not accessible) from the outside, and they can securely communicate with each others, even they can communicate securely with on-promises networks. As well, you can create a segment of that network to communicate to the outside world.
-Both VPC, and VN are using the networking technique called <a href="https://en.wikipedia.org/wiki/Private_network" target="_blank">Private Network</a> which the <a href="https://en.wikipedia.org/wiki/Local_area_network" target="_blank">Local Area Network LAN</a> is just one implementation of it.</p>
+Both VPC, and VN are using the networking technique called <a href="https://en.wikipedia.org/wiki/Private_network">Private Network</a> which the <a href="https://en.wikipedia.org/wiki/Local_area_network">Local Area Network LAN</a> is just one implementation of it.</p>
 <h3 id="what-is-a-private-network">What is a private network?<a class="anchorjs-link" href="#what-is-a-private-network"></a></h3><p>Private Network, is a network that uses private IP address space, which provides these essential functionalities to the network:</p>
 <ul>
 <li>Help in the shortage of IP addresses on IPV4, by re-using the same address range of other private networks.</li>
@@ -207,13 +207,13 @@ Both VPC, and VN are using the networking technique called <a href="https://en.w
 <li>Segment your own virtual network, into one or more subnets, so you can isolate your own resources to not communicate with each others.</li>
 </ul>
 <h3 id="how-does-a-private-network-work">How does a private network work?<a class="anchorjs-link" href="#how-does-a-private-network-work"></a></h3><p>When we build a private network, we choose a range of private network addresses, and we should select one of the available address ranges available for private networks.
-Internet Assigned Numbers Authority (IANA) reserved the following IPv4 address ranges for private networks. (P.S: if you heard the term <a href="https://tools.ietf.org/html/rfc1918" target="_blank">RFC1918</a> then it is the protocol that reserves these addresses).</p>
+Internet Assigned Numbers Authority (IANA) reserved the following IPv4 address ranges for private networks. (P.S: if you heard the term <a href="https://tools.ietf.org/html/rfc1918">RFC1918</a> then it is the protocol that reserves these addresses).</p>
 <ul>
 <li>192.168.0.0 - 192.168.255.255 (65,536 IP addresses)</li>
 <li>172.16.0.0 - 172.31.255.255 (1,048,576 IP addresses)</li>
 <li>10.0.0.0 - 10.255.255.255 (16,777,216 IP addresses).</li>
 </ul>
-<p>We can do a better representation of these addresses with <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing" target="_blank">CIDR format</a></p>
+<p>We can do a better representation of these addresses with <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR format</a></p>
 <table>
 <thead>
 <tr>
@@ -240,7 +240,7 @@ Internet Assigned Numbers Authority (IANA) reserved the following IPv4 address r
 </tr>
 </tbody>
 </table>
-<p>To learn more about CIDR please read <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing" target="_blank">its wikipedia page</a></p>
+<p>To learn more about CIDR please read <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">its wikipedia page</a></p>
 <p>This is why when you try to find your local IP address through Windows’s <em><code>ipconfig</code></em>, or Linux’s <em><code>ifconfig</code></em>, you will get an address from the ranges above.</p>
 <h3 id="private-network-and-nat">Private Network and NAT<a class="anchorjs-link" href="#private-network-and-nat"></a></h3><p>In order to allow resources (such as computers) on a private network communicate to the external internet, there is a method called Network Address Translation
 (NAT), or Port Address Translation (PAT), which is based on a “routing device”  (like your home router) that will translate a large number of these private IP addresses to a single public IP address. It does so by mapping each internal/private IP address to the public IP address and a specific port (as usually defined in the TCP or UDP protocols). This way, you can have a network containing multiple devices (e.g. 10.0.0.1, 10.0.0.2, 10.0.0.3, etc), and they will all be represented by the single router with a public IP address (e.g. 11.32.123.4).</p>
@@ -250,7 +250,7 @@ Windows’s ipconfig
 POSIX’s ifconfig</p>
 <p>Or on the mobile, you can go to the settings and check your ip address.
 You will find an address from the range mentioned in the table obove.</p>
-<p>To find your external IP address, go to the website <a href="https://www.whatismyip.com/" target="_blank">https://www.whatismyip.com</a>.
+<p>To find your external IP address, go to the website <a href="https://www.whatismyip.com/">https://www.whatismyip.com</a>.
 You will find a different IP address, which is the IP address that your ISP assigned to you.</p>
 
 
