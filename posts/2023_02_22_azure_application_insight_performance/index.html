@@ -10,15 +10,24 @@
     
   <title>Check performance bottleneck with Azure Application Insights. | Ghassan&#39;s Page</title>
   <meta name="author" content="Ghassan Karwchan">
-  <meta name="description" content="If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies.">
+  <meta name="description" content="If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies.
+I have a Web API application, that is accessing Azure Sql Server, and Azure blob storage.
+By going into the performance blade under Investigate:
+You will see the average time for each API call, sorted descending by time: By clicking on any one, you can drill down to where the time consume even by its external dependencies:">
   <meta name="keywords" content="blog,developer,personal">
 
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Check performance bottleneck with Azure Application Insights."/>
-<meta name="twitter:description" content="If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies."/>
+<meta name="twitter:description" content="If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies.
+I have a Web API application, that is accessing Azure Sql Server, and Azure blob storage.
+By going into the performance blade under Investigate:
+You will see the average time for each API call, sorted descending by time: By clicking on any one, you can drill down to where the time consume even by its external dependencies:"/>
 
   <meta property="og:title" content="Check performance bottleneck with Azure Application Insights." />
-<meta property="og:description" content="If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies." />
+<meta property="og:description" content="If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies.
+I have a Web API application, that is accessing Azure Sql Server, and Azure blob storage.
+By going into the performance blade under Investigate:
+You will see the average time for each API call, sorted descending by time: By clicking on any one, you can drill down to where the time consume even by its external dependencies:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.ghassan.page/posts/2023_02_22_azure_application_insight_performance/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-22T21:44:55-07:00" />
@@ -199,7 +208,7 @@
               post-container">
         <p>If you have Application Insights enabled for your azure app service, then it is a piece of cake to get the performance bottleneck in your app, and even it check external dependencies like database queries or any other external dependencies.</p>
 <p>I have a Web API application, that is accessing Azure Sql Server, and Azure blob storage.</p>
-<p>By going into the performance blade under <code>Investigate</code> category:<br>
+<p>By going into the performance blade under <code>Investigate</code>:<br>
 <figure>
   <a class="paragraph-image">
     <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0mr3srn55zc4vebhm1ik.png" data-action="zoom" alt="Image description"  class="lazyload">
@@ -239,6 +248,35 @@
   </a>
   
 </figure></p>
+<h2 id="wait-there-is-more">Wait, there is more<a class="anchorjs-link" href="#wait-there-is-more"></a></h2><p>If the app administrator had concerns about the performance, and want to inform the developer team, then they can report the issue from Application Insights.<br>
+On the right side, you can create a <strong><code>Work Item</code></strong> to report this issue to the dev team.</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kyg5duvxy0h3korp97yn.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>You need to have a <code>Work Item Template</code>, which define where you report those issues. There are two venues where you report the issues:</p>
+<ol>
+<li>Azure DevOps.</li>
+<li>GitHub Repository, where it report it to the <code>Issues</code> tab in the repository.</li>
+</ol>
+<p>Creating a template is easy, but I am not going to cover it here, and I am already created a template the report in my github repo.</p>
+<p>After you create a <code>Work Item</code>, (in my case I had already template, it will create an issue with the name of the API call</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8wcdmrm07p6c7jjfx1bx.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p>and inside the issue will have a link to the details captured in Application Insights.</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kejv8yf70spkg4j2ntag.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+
 
         <hr style="visibility: hidden;" />
         <ul class="pager">
