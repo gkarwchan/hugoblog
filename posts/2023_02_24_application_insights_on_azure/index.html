@@ -10,24 +10,21 @@
     
   <title>Everything you need to know about telemetry for your Asp.NET application on Azure. | Ghassan&#39;s Page</title>
   <meta name="author" content="Ghassan Karwchan">
-  <meta name="description" content="Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
-Azure Monitor is an umbrella of three services:
-Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
-Telemetry and instrumentation in Azure.">
+  <meta name="description" content="All of the services that Azure offers for the instrumentation and observability (monitoring) of applications are grouped under Azure Monitor.
+Three services fall under the banner of Azure Monitor:
+Azure Monitor itself, which offers the observability component to track your apps. Application Insights, or its substitute OpenTelemetry, which offers the instrumentation and telemetry components The analytics component is provided by Log Analytics. We will emphasise the instrumentation component in this post.">
   <meta name="keywords" content="blog,developer,personal">
 
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Everything you need to know about telemetry for your Asp.NET application on Azure."/>
-<meta name="twitter:description" content="Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
-Azure Monitor is an umbrella of three services:
-Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
-Telemetry and instrumentation in Azure."/>
+<meta name="twitter:description" content="All of the services that Azure offers for the instrumentation and observability (monitoring) of applications are grouped under Azure Monitor.
+Three services fall under the banner of Azure Monitor:
+Azure Monitor itself, which offers the observability component to track your apps. Application Insights, or its substitute OpenTelemetry, which offers the instrumentation and telemetry components The analytics component is provided by Log Analytics. We will emphasise the instrumentation component in this post."/>
 
   <meta property="og:title" content="Everything you need to know about telemetry for your Asp.NET application on Azure." />
-<meta property="og:description" content="Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
-Azure Monitor is an umbrella of three services:
-Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
-Telemetry and instrumentation in Azure." />
+<meta property="og:description" content="All of the services that Azure offers for the instrumentation and observability (monitoring) of applications are grouped under Azure Monitor.
+Three services fall under the banner of Azure Monitor:
+Azure Monitor itself, which offers the observability component to track your apps. Application Insights, or its substitute OpenTelemetry, which offers the instrumentation and telemetry components The analytics component is provided by Log Analytics. We will emphasise the instrumentation component in this post." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.ghassan.page/posts/2023_02_24_application_insights_on_azure/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-24T21:44:55-07:00" />
@@ -206,28 +203,31 @@ Telemetry and instrumentation in Azure." />
               col-lg-8 col-lg-offset-2
               col-md-10 col-md-offset-1
               post-container">
-        <p>Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.</p>
-<p>Azure Monitor is an umbrella of three services:</p>
+        <p>All of the services that Azure offers for the instrumentation and observability (monitoring) of applications are grouped under Azure Monitor.</p>
+<p>Three services fall under the banner of Azure Monitor:</p>
 <ol>
-<li>Azure Monitor itself which provides the observability part to monitor your applications.</li>
-<li>Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part.</li>
-<li>Log Analytics which provides the analytics part.</li>
+<li>Azure Monitor itself, which offers the observability component to track your apps.</li>
+<li>Application Insights, or its substitute OpenTelemetry, which offers the instrumentation and telemetry components</li>
+<li>The analytics component is provided by Log Analytics.</li>
 </ol>
-<p>In this post we will focus on the instrumentation part.</p>
+<p>We will emphasise the instrumentation component in this post.</p>
 <h2 id="telemetry-and-instrumentation-in-azure">Telemetry and instrumentation in Azure.<a class="anchorjs-link" href="#telemetry-and-instrumentation-in-azure"></a></h2><p>Telemetry, the data collected to observe your application, can be broken into three types or &ldquo;pillars&rdquo;:</p>
 <ul>
 <li>Distributed Tracing</li>
 <li>Metrics</li>
-<li>Logs
-Azure provides two services that cover this area:</li>
-<li>Application Insights</li>
-<li>OpenTelemtry
-Application Insights in the service that provides comprehensive and rich tools to collect data about your application, and it is the service that we are going to cover it in this post. But it is worth talking briefly about <code>OpenTelemetry</code>.</li>
+<li>Logs</li>
 </ul>
-<h3 id="opentelemetry-on-azure">OpenTelemetry on Azure:<a class="anchorjs-link" href="#opentelemetry-on-azure"></a></h3><p>OpenTelemetry is the new kid in the hood and it is the future of telemetry.It is an initiative trying to standardize and unify telemetry APIs and SDKs, and build vendor-neutral SDKs for telemetry.<br>
-It is still in early phase of development, and it only cover the <strong>Distributed Tracing</strong> part of the telemetry.
-This technologies are used a lot in docker and Kubernetes world.<br>
-Azure Monitor recently start to adopt OpenTelmetry by reading its data. But generally speaking until the technology move more steps forward, and specially if we are working on App service, and Azure functions we should chose Application Insights because it has way more features.</p>
+<p>Azure provides two services that cover this area:</p>
+<ul>
+<li>Application Insights</li>
+<li>OpenTelemtry</li>
+</ul>
+<p>Application Insights is the service we will discuss in this post because it offers thorough and rich capabilities for gathering information about your application. Yet <code>OpenTelemetry</code> deserves a quick mention.</p>
+<h3 id="opentelemetry-on-azure">OpenTelemetry on Azure:<a class="anchorjs-link" href="#opentelemetry-on-azure"></a></h3><p>Resuming with Application Insights
+OpenTelemetry is the new kid in the hood and it is the future of telemetry. This initiative aims to standardize telemetry APIs and SDKs, and establish vendor-neutral SDKs for telemetry.<br>
+It is still in early phase of development, and it only cover the <strong>Distributed Tracing</strong> part of the telemetry.<br>
+The technology is widely utilised in the world of Docker and Kubernetes.<br>
+Recently, Azure Monitor began implementing OpenTelmetry by reading its data. Nonetheless, in general, we should choose Application Insights because it has far more functionality till this technology advances further, especially if we are working on App Service and Azure functionalities.</p>
 <p>Now back to Application Insights.</p>
 <h2 id="application-insights-and-auto-instrumentation">Application Insights and Auto-Instrumentation:<a class="anchorjs-link" href="#application-insights-and-auto-instrumentation"></a></h2><p>You can enable Application Insights on an App Service or Azure Function without writing any line of code.
 This feature is called Auto-instrumentation or “Run-time instrumentation”

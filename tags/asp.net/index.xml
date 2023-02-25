@@ -13,10 +13,9 @@
       <pubDate>Fri, 24 Feb 2023 21:44:55 -0700</pubDate>
       
       <guid>https://www.ghassan.page/posts/2023_02_24_application_insights_on_azure/</guid>
-      <description>Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
-Azure Monitor is an umbrella of three services:
-Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
-Telemetry and instrumentation in Azure.</description>
+      <description>All of the services that Azure offers for the instrumentation and observability (monitoring) of applications are grouped under Azure Monitor.
+Three services fall under the banner of Azure Monitor:
+Azure Monitor itself, which offers the observability component to track your apps. Application Insights, or its substitute OpenTelemetry, which offers the instrumentation and telemetry components The analytics component is provided by Log Analytics. We will emphasise the instrumentation component in this post.</description>
     </item>
     
     <item>
