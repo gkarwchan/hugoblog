@@ -272,6 +272,20 @@ The more we track from inside the code the more coverage we will have on the per
 <li>Performance Counters: for example memory and CPU usage.</li>
 <li>Events Counter: There are built-in events that the SDK will collect, and you can create your own custom event. For a list of built-in events <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/eventcounters">check this link</a>.</li>
 </ul>
+<h4 id="what-to-capture-with-the-sdk">What to capture with the SDK<a class="anchorjs-link" href="#what-to-capture-with-the-sdk"></a></h4><p>Many metrics can be collected, and each one has a corresponding config name which we can turned off</p>
+<ul>
+<li>Http request calls</li>
+<li>Performance counters (memory, CPU usage)</li>
+<li>Dependencies: <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/asp-net-dependencies#dependency-auto-collection">check this for a list of trackable dependencies</a></li>
+<li>Heart Beat feature</li>
+<li>Events: this deserve another post</li>
+</ul>
+<h4 id="frequency-of-metric-sampling">Frequency of metric sampling<a class="anchorjs-link" href="#frequency-of-metric-sampling"></a></h4><p>How often the SDK will send sampling to Azure service?<br>
+We can configure that using sampling configuration. There are two options to define sampling frequency:</p>
+<ul>
+<li>Adaptive: which is the default</li>
+<li>Fixed-rate: which you can use to reduce the traffic to the server.</li>
+</ul>
 
 
         <hr style="visibility: hidden;" />
