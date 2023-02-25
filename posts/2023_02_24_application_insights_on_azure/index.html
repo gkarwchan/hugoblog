@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+    
+  <title>Everything you need to know about telemetry for your Asp.NET application on Azure. | Ghassan&#39;s Page</title>
+  <meta name="author" content="Ghassan Karwchan">
+  <meta name="description" content="Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
+Azure Monitor is an umbrella of three services:
+Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
+Telemetry and instrumentation in Azure.">
+  <meta name="keywords" content="blog,developer,personal">
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Everything you need to know about telemetry for your Asp.NET application on Azure."/>
+<meta name="twitter:description" content="Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
+Azure Monitor is an umbrella of three services:
+Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
+Telemetry and instrumentation in Azure."/>
+
+  <meta property="og:title" content="Everything you need to know about telemetry for your Asp.NET application on Azure." />
+<meta property="og:description" content="Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.
+Azure Monitor is an umbrella of three services:
+Azure Monitor itself which provides the observability part to monitor your applications. Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part. Log Analytics which provides the analytics part. In this post we will focus on the instrumentation part.
+Telemetry and instrumentation in Azure." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.ghassan.page/posts/2023_02_24_application_insights_on_azure/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-24T21:44:55-07:00" />
+<meta property="article:modified_time" content="2023-02-24T21:44:55-07:00" />
+
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
+  
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+
+</head>
+
+
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.ghassan.page/">Ghassan&#39;s Page</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/archive/" title="Archive">Archive</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+          <li><a href="https://github.com/gkarwchan/hugoblogsource" title="Github">Github</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
+
+  
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
+    } else {
+      __HuxNav__.open();
+    }
+  });
+
+  
+
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/azure/" title="azure">azure</a>
+            
+            <a class="tag" href="/tags/asp.net/" title="asp.net">asp.net</a>
+            
+          </div>
+          <h1>Everything you need to know about telemetry for your Asp.NET application on Azure.</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  Ghassan Karwchan 
+            on Fri, Feb 24, 2023
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  
+
+
+<article>
+  <div class="container">
+    <div class="row">
+
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <p>Azure provides services for instrumentation and observability (monitoring) of applications, and all these services reside under Azure Monitor.</p>
+<p>Azure Monitor is an umbrella of three services:</p>
+<ol>
+<li>Azure Monitor itself which provides the observability part to monitor your applications.</li>
+<li>Application Insights, or its alternative OpenTelemetry which provides the telemetry, and instrumentation part.</li>
+<li>Log Analytics which provides the analytics part.</li>
+</ol>
+<p>In this post we will focus on the instrumentation part.</p>
+<h2 id="telemetry-and-instrumentation-in-azure">Telemetry and instrumentation in Azure.<a class="anchorjs-link" href="#telemetry-and-instrumentation-in-azure"></a></h2><p>Telemetry, the data collected to observe your application, can be broken into three types or &ldquo;pillars&rdquo;:</p>
+<ul>
+<li>Distributed Tracing</li>
+<li>Metrics</li>
+<li>Logs
+Azure provides two services that cover this area:</li>
+<li>Application Insights</li>
+<li>OpenTelemtry
+Application Insights in the service that provides comprehensive and rich tools to collect data about your application, and it is the service that we are going to cover it in this post. But it is worth talking briefly about <code>OpenTelemetry</code>.</li>
+</ul>
+<h3 id="opentelemetry-on-azure">OpenTelemetry on Azure:<a class="anchorjs-link" href="#opentelemetry-on-azure"></a></h3><p>OpenTelemetry is the new kid in the hood and it is the future of telemetry.It is an initiative trying to standardize and unify telemetry APIs and SDKs, and build vendor-neutral SDKs for telemetry.<br>
+It is still in early phase of development, and it only cover the <strong>Distributed Tracing</strong> part of the telemetry.
+This technologies are used a lot in docker and Kubernetes world.<br>
+Azure Monitor recently start to adopt OpenTelmetry by reading its data. But generally speaking until the technology move more steps forward, and specially if we are working on App service, and Azure functions we should chose Application Insights because it has way more features.</p>
+<p>Now back to Application Insights.</p>
+<h2 id="application-insights-and-auto-instrumentation">Application Insights and Auto-Instrumentation:<a class="anchorjs-link" href="#application-insights-and-auto-instrumentation"></a></h2><p>You can enable Application Insights on an App Service or Azure Function without writing any line of code.
+This feature is called Auto-instrumentation or “Run-time instrumentation”
+This feature is available because the App Service base image has a built-in agent that will collect the instrumentation and communicate with the Application Insights server.</p>
+<p>Asp.net core (on both linux and windows) supports Auto-instrumentation.</p>
+<p>To enable Auto-instrumentation on an App Service, on Azure Portal check the App Service, and on the left side there is <strong><code>Application Insigths</code></strong> blade.<br>
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/eflexlh7m9gd41lkpwv1.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure>
+Then you enable it on the App Service.
+<figure>
+  <a class="paragraph-image">
+    <img data-src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/opsn6eio4ylbu2w9pxfd.png" data-action="zoom" alt="Image description"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h4 id="auto-instrumentation-on-client-side">Auto-instrumentation on client side:<a class="anchorjs-link" href="#auto-instrumentation-on-client-side"></a></h4><p>If you are using Asp.NET MVC application on Windows hosted App Service, or using Azure Static Web App, you can auto-instrument your JavaScript code, by just doing the following:<br>
+Add a new application setting <strong><code>APPINSIGHTS_JAVASCRIPT_ENABLED</code></strong> and set its value to <strong><code>true</code></strong>.<br>
+That will inject JavaScript SDK for Application Insights in your JavaScript code.</p>
+<p>Client-side instrumentation captures information about the user experience of the app, including page load times, details of browser exceptions, and performance data about AJAX calls.</p>
+<h2 id="application-insights-and-manual-instrumentation">Application Insights and Manual-Instrumentation:<a class="anchorjs-link" href="#application-insights-and-manual-instrumentation"></a></h2><p>Although Auto-instremenation will provide good coverage, it is not enough.
+We need to track our application manually from inside the code.
+The more we track from inside the code the more coverage we will have on the performance and operational issues we encounter in production, which translates to better support.</p>
+<h4 id="manual-instrumentation-on-the-aspnet-server-code">Manual instrumentation on the Asp.NET server code:<a class="anchorjs-link" href="#manual-instrumentation-on-the-aspnet-server-code"></a></h4><p>To collect telemetry from the code, we need to include NuGet package:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Microsoft.ApplicationInsights.AspNetCore
+</span></span></code></pre></div><p>Then initialize the service from the code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd">var</span> builder = WebApplication.CreateBuilder(args);
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4">// The following line enables Application Insights telemetry collection.</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>builder.Services.AddApplicationInsightsTelemetry();
+</span></span></code></pre></div><p>You can pass the connection string in the code, but better to provide it from the <code>appsettings.json</code> file as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">// in appsettings.json
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#f1fa8c">&#34;ApplicationInsights&#34;</span>: {
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">&#34;ConnectionString&#34;</span>: <span style="color:#f1fa8c">&#34;Copy connection string from Application Insights Resource Overview&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  }
+</span></span></code></pre></div><p>By just adding these few lines, our SDK will collect lots of metrics from the running application. It will collect:</p>
+<ul>
+<li>Application Dependencies: for example communication with databases including sql statements, or with blob storage.</li>
+<li>Performance Counters: for example memory and CPU usage.</li>
+<li>Events Counter: There are built-in events that the SDK will collect, and you can create your own custom event. For a list of built-in events <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/app/eventcounters">check this link</a>.</li>
+</ul>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/posts/2023_02_22_azure_application_insight_performance/" data-toggle="tooltip" data-placement="top" title="Check performance bottleneck with Azure Application Insights.">
+              Previous<br>
+              <span>Check performance bottleneck with Azure Application Insights.</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="gkarwchan/hugoblog" 
+  data-repo-id="R_kgDOI9C7aQ"
+  data-category="General"
+  data-category-id="DIC_kwDOI9C7ac4CUTNT"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/algorithm/">algorithm</a>
+    
+    <a href="/tags/asp.net/">asp.net</a>
+    
+    <a href="/tags/azure/">azure</a>
+    
+    <a href="/tags/ci/cd/">ci/cd</a>
+    
+    <a href="/tags/container/">container</a>
+    
+    <a href="/tags/dev-tools/">dev tools</a>
+    
+    <a href="/tags/javascript/">javascript</a>
+    
+    <a href="/tags/performance/">performance</a>
+    
+    <a href="/tags/python/">python</a>
+    
+    <a href="/tags/security/">security</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+<li>
+  <a href="https://github.com/gkarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+<li>
+  <a href="https://linkedin.com/in/ghassankarwchan" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li>
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; Ghassan&#39;s Page 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
+</html>
