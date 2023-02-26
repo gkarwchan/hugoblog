@@ -10,18 +10,21 @@
     
   <title>Some thoughts about ASP.NET Minimal API and Minimal Hosting Model | Ghassan&#39;s Page</title>
   <meta name="author" content="Ghassan Karwchan">
-  <meta name="description" content="Why this post?Looking at the new ASP.NET 6 and its minimal hosting model, triggered some thoughts comparing it to ASP.NET 2, and made me think if Microsoft going back to some old concepts. And was questioning the real benefits of migrating to this model. So let me explain, and compare it with ASP.NET version 5 and 2.
-The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in .">
+  <meta name="description" content="Why this post?ASP.NET 6&rsquo;s minimal hosting model made me compare it to ASP.NET 2 and wonder if Microsoft is going back to some old concepts. I was curious about the potential benefit of migration, so I intend to explain and compare ASP.NET 6, 5 and 2.
+The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in .net 6 using webapi template:
+1dotnet new webapi -n tutorial.">
   <meta name="keywords" content="blog,developer,personal">
 
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Some thoughts about ASP.NET Minimal API and Minimal Hosting Model"/>
-<meta name="twitter:description" content="Why this post?Looking at the new ASP.NET 6 and its minimal hosting model, triggered some thoughts comparing it to ASP.NET 2, and made me think if Microsoft going back to some old concepts. And was questioning the real benefits of migrating to this model. So let me explain, and compare it with ASP.NET version 5 and 2.
-The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in ."/>
+<meta name="twitter:description" content="Why this post?ASP.NET 6&rsquo;s minimal hosting model made me compare it to ASP.NET 2 and wonder if Microsoft is going back to some old concepts. I was curious about the potential benefit of migration, so I intend to explain and compare ASP.NET 6, 5 and 2.
+The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in .net 6 using webapi template:
+1dotnet new webapi -n tutorial."/>
 
   <meta property="og:title" content="Some thoughts about ASP.NET Minimal API and Minimal Hosting Model" />
-<meta property="og:description" content="Why this post?Looking at the new ASP.NET 6 and its minimal hosting model, triggered some thoughts comparing it to ASP.NET 2, and made me think if Microsoft going back to some old concepts. And was questioning the real benefits of migrating to this model. So let me explain, and compare it with ASP.NET version 5 and 2.
-The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in ." />
+<meta property="og:description" content="Why this post?ASP.NET 6&rsquo;s minimal hosting model made me compare it to ASP.NET 2 and wonder if Microsoft is going back to some old concepts. I was curious about the potential benefit of migration, so I intend to explain and compare ASP.NET 6, 5 and 2.
+The new WebApplication builder and some history of ASP.NET:Let us generate a new webapi application in .net 6 using webapi template:
+1dotnet new webapi -n tutorial." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.ghassan.page/posts/2022_12_19_aspnet_minimal_api/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-19T19:15:28-07:00" />
@@ -198,34 +201,43 @@ The new WebApplication builder and some history of ASP.NET:Let us generate a new
               col-lg-8 col-lg-offset-2
               col-md-10 col-md-offset-1
               post-container">
-        <h2 id="why-this-post">Why this post?<a class="anchorjs-link" href="#why-this-post"></a></h2><p>Looking at the new ASP.NET 6 and its minimal hosting model, triggered some thoughts comparing it to ASP.NET 2, and made me think if Microsoft going back to some old concepts. And was questioning the real benefits of migrating to this model.
-So let me explain, and compare it with ASP.NET version 5 and 2.</p>
+        <h2 id="why-this-post">Why this post?<a class="anchorjs-link" href="#why-this-post"></a></h2><p>ASP.NET 6&rsquo;s minimal hosting model made me compare it to ASP.NET 2 and wonder if Microsoft is going back to some old concepts. I was curious about the potential benefit of migration, so I intend to explain and compare ASP.NET 6, 5 and 2.</p>
 <h2 id="the-new-webapplication-builder-and-some-history-of-aspnet">The new <strong>WebApplication</strong> builder and some history of ASP.NET:<a class="anchorjs-link" href="#the-new-webapplication-builder-and-some-history-of-aspnet"></a></h2><p>Let us generate a new webapi application in .net 6 using webapi template:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>dotnet new webapi -n tutorial.webapi
 </span></span></code></pre></div><p>You will see that we only have one file <strong><code>program.cs</code></strong>, and there is no more <strong><code>startup.cs</code></strong> and the code as follows:</p>
-<p>Looking at the new <strong>WebApplication</strong> builder, I couldn&rsquo;t help compare it to the old ASP.NET 2 <strong>WebHost</strong> Builder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd">var</span> builder = WebApplication.CreateBuilder(args);
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>builder.Services.AddControllers();
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#8be9fd">var</span> app = builder.Build();
+</span></span></code></pre></div><p>Looking at the new <strong>WebApplication</strong> builder, I couldn&rsquo;t help compare it to the old ASP.NET 2 <strong>WebHost</strong> Builder.</p>
 <p>If you look at old code of ASP.NET 2, which looked as follow</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd">var</span> host = WebHost.CreateDefaulBuilder();
 </span></span></code></pre></div><p>Which was creating <strong>IWebHostBuilder</strong> that will build <strong>IWebHost</strong>.</p>
 <p>WebHost was not recommended after 3.x, because ASP.NET 3.x came with the idea of a generic host where you can build services that can be hosted not only on the web, but as well on Worker Services, and even Windows Services.</p>
-<p>Another question came up was the missing of startup.cs file.</p>
-<p>ASP.NET from version 2 (or maybe 1), distinguished between host initialization, and the web application initialization,
-And to manage the two in loose coupling they created the <code>program.cs</code> file to manage the host, and <code>startup.cs</code> to initialize the web application. Where host initialization deals with reading settings from config files, environment and command line arguments, plus handle the logging, and the web initialization deals with configure ASP.NET dependency injection framework and configure the web pipeline, and they couple them with this.</p>
+<p>Another question came up was the missing of startup.cs file, and similarity to what was before version 2.</p>
+<p>ASP.NET from version 2 (or maybe 1), distinguished two concepts:</p>
+<ul>
+<li>host initialization</li>
+<li>and Web application initialization.</li>
+</ul>
+<p>And to manage the two in loose coupling they created the <code>program.cs</code> file to manage the host, and <code>startup.cs</code> to initialize the web application.<br>
+Host initialization (program.cs) deals with reading settings from config files, environment and command line arguments, plus handle the logging, and the web initialization (startup.cs) deals with configure ASP.NET dependency injection framework and configure the web pipeline.</p>
+<p>And they <u>connect</u> them with this.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#6272a4">// code of program.cs</span>
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">static</span> <span style="color:#ff79c6">void</span> Main(<span style="color:#8be9fd">string</span>[] args)
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>{
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>    CreateHostBuilder(args).Build().Run(); <span style="color:#6272a4">// </span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>    CreateHostBuilder(args).Build().Run(); 
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>}
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#ff79c6">public</span> <span style="color:#ff79c6">static</span> IHostBuilder CreateHostBuilder(<span style="color:#8be9fd">string</span>[] args)
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>{
 </span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>    <span style="color:#ff79c6">return</span> Host.CreateDefaultBuilder(args)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>         .ConfigureWebHostDefaults(webbuilder =&gt; { webBuilder.UseStartup&lt;Startup&gt;(); });
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>}
-</span></span></code></pre></div><p>As you can see, they achieved initialization the web application from the general host using an extension method on the IWebHostBuilder that initialize the web application in the <code>startup.cs</code> code.</p>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>         .ConfigureWebHostDefaults(
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>            webbuilder =&gt; { 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>               webBuilder.UseStartup&lt;Startup&gt;(); });
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>}
+</span></span></code></pre></div><p>As you can see, they achieved initialization <code>the web application</code> from the <code>general host</code> using an extension method on the IWebHostBuilder that initialize the web application in the <code>startup.cs</code> code.</p>
 <p>The code in <code>startup.cs</code> will initialize the web by configure ASP.NET dependency injection, and define the web pipeline, and define the mappings.</p>
-<p>So, the new WebApplication Builder, and the missing <code>startup</code> file made me ask if Microsoft is getting rid of the general host and going back to the only Webhost.</p>
+<p>So, the new WebApplication Builder, and the missing <code>startup</code> file made me ask if Microsoft is getting rid of the general host and going back to the only one <code>Webhost</code>.</p>
 <p>Well, the answer is NO, but before answer how, let me add the another issue I found in the new code, which is regarding the mapping URL to actions.</p>
 <p>If we build a new minimal API project with the new template that comes with .NET 6, which is <strong>Web template</strong>, as follows:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>dotnet new web -n tutorial.web
@@ -297,7 +309,7 @@ In the code generated by webapi project we see this code:</p>
 </span></span></code></pre></div><p>The reason for that is in microservice/docker architecture, the authentication will be handled from the orchestrator / manager of the microservices, and all communications to the microservices are done in their own private network on HTTP and not HTTPS.</p>
 <h2 id="do-you-need-to-migrate-to-the-new-minimal-hosting-model">Do you need to migrate to the new Minimal Hosting Model?<a class="anchorjs-link" href="#do-you-need-to-migrate-to-the-new-minimal-hosting-model"></a></h2><p>After I read <a href="https://learn.microsoft.com/en-us/aspnet/core/migration/50-to-60?view=aspnetcore-6.0&amp;tabs=visual-studio#new-hosting-model">in this section</a> the benefits of the new model, I didn&rsquo;t find a real urge to merge to it, and I found it more code style rather than real performance benefits. And <a href="https://stackoverflow.com/questions/71895364/why-migrate-to-the-asp-net-core-6-minimal-hosting-model">I am not alone in that</a>.</p>
 <p>Adding to that, if you read this <a href="https://learn.microsoft.com/en-us/aspnet/core/migration/50-to-60?view=aspnetcore-6.0&amp;tabs=visual-studio#faq">FAQ</a>, you will see that the generic host still underpins the new hosting model and is still the primary way to host applications.</p>
-<p>So if you are migrating from ASP.NET 6, don&rsquo;t bother to migrate to the new hosting model, because it is just hide and encapsulate some code that you are already written.</p>
+<p>So if you are migrating from ASP.NET 5, don&rsquo;t bother to migrate to the new hosting model, because it is just hide and encapsulate some code that you are already written.</p>
 <p>One important clarification that Minimal Hosting model is different than Minimal API. Minimal API doesn&rsquo;t include the mapping of controllers and MVC, while Minimum hosting model is still a WebAPI that built on top of MVC, but having less code than ASP.NET 5. So it is mostly hide lots of boilerplate code.</p>
 
 
