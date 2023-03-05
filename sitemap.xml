@@ -2,22 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://www.ghassan.page/tags/azure/</loc>
+    <lastmod>2023-03-04T21:44:55-07:00</lastmod>
+  </url><url>
+    <loc>https://www.ghassan.page/posts/2023_03_05_buy_custom_domain_with_azure/</loc>
+    <lastmod>2023-03-04T21:44:55-07:00</lastmod>
+  </url><url>
+    <loc>https://www.ghassan.page/</loc>
+    <lastmod>2023-03-04T21:44:55-07:00</lastmod>
+  </url><url>
+    <loc>https://www.ghassan.page/tags/networking/</loc>
+    <lastmod>2023-03-04T21:44:55-07:00</lastmod>
+  </url><url>
+    <loc>https://www.ghassan.page/posts/</loc>
+    <lastmod>2023-03-04T21:44:55-07:00</lastmod>
+  </url><url>
+    <loc>https://www.ghassan.page/tags/</loc>
+    <lastmod>2023-03-04T21:44:55-07:00</lastmod>
+  </url><url>
     <loc>https://www.ghassan.page/tags/asp.net/</loc>
     <lastmod>2023-02-24T21:44:55-07:00</lastmod>
   </url><url>
-    <loc>https://www.ghassan.page/tags/azure/</loc>
-    <lastmod>2023-02-24T21:44:55-07:00</lastmod>
-  </url><url>
     <loc>https://www.ghassan.page/posts/2023_02_24_application_insights_on_azure/</loc>
-    <lastmod>2023-02-24T21:44:55-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/</loc>
-    <lastmod>2023-02-24T21:44:55-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/posts/</loc>
-    <lastmod>2023-02-24T21:44:55-07:00</lastmod>
-  </url><url>
-    <loc>https://www.ghassan.page/tags/</loc>
     <lastmod>2023-02-24T21:44:55-07:00</lastmod>
   </url><url>
     <loc>https://www.ghassan.page/posts/2023_02_22_azure_application_insight_performance/</loc>
