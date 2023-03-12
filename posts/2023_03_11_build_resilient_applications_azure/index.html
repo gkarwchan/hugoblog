@@ -8,7 +8,7 @@
 
   
     
-  <title>build resilient applications accessing Azure services with no code. | Ghassan&#39;s Page</title>
+  <title>Build resilient applications accessing Azure services with no code. | Ghassan&#39;s Page</title>
   <meta name="author" content="Ghassan Karwchan">
   <meta name="description" content="When working on distributed system like systems that are running on the cloud, and microservices, then you should anticipate transient faults like temporary loss of network connection, or temporary unavailability of a service, or a service is busy.
 This is why in cloud application, the term Building for resiliency become a pattern in building application, and it means properly handling these transient faults in the code.
@@ -16,12 +16,12 @@ There are two common used patterns that we can use in our code, that can help bu
   <meta name="keywords" content="blog,developer,personal">
 
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="build resilient applications accessing Azure services with no code."/>
+<meta name="twitter:title" content="Build resilient applications accessing Azure services with no code."/>
 <meta name="twitter:description" content="When working on distributed system like systems that are running on the cloud, and microservices, then you should anticipate transient faults like temporary loss of network connection, or temporary unavailability of a service, or a service is busy.
 This is why in cloud application, the term Building for resiliency become a pattern in building application, and it means properly handling these transient faults in the code.
 There are two common used patterns that we can use in our code, that can help build resilience application."/>
 
-  <meta property="og:title" content="build resilient applications accessing Azure services with no code." />
+  <meta property="og:title" content="Build resilient applications accessing Azure services with no code." />
 <meta property="og:description" content="When working on distributed system like systems that are running on the cloud, and microservices, then you should anticipate transient faults like temporary loss of network connection, or temporary unavailability of a service, or a service is busy.
 This is why in cloud application, the term Building for resiliency become a pattern in building application, and it means properly handling these transient faults in the code.
 There are two common used patterns that we can use in our code, that can help build resilience application." />
@@ -178,7 +178,7 @@ There are two common used patterns that we can use in our code, that can help bu
             <a class="tag" href="/tags/asp.net/" title="asp.net">asp.net</a>
             
           </div>
-          <h1>build resilient applications accessing Azure services with no code.</h1>
+          <h1>Build resilient applications accessing Azure services with no code.</h1>
           <h2 class="subheading"></h2>
           <span class="meta">
             Posted by  Ghassan Karwchan 
@@ -294,7 +294,7 @@ This will add delay for our application.<br>
 The Circuit-breaker pattern will fix this, by assuming the service is down after many failed calls.<br>
 If the service marked as down, then code will immediately fail the call without even calling the service.<br>
 This state is called <code>Open Circuit</code>.<br>
-Then the code will wait for a while before it try again to call the service, and if it is still failing, then the state will still be <code>Open', otherwise it is marked as healthy, and the state will be </code>Closed Circuit`.<br>
+Then the code will wait for a while before it try again to call the service, and if it is still failing, then the state will still be <code>Open</code>, otherwise it is marked as healthy, and the state will be <code>Closed Circuit</code>.<br>
 Circuit breaker should be used in conjunction with the retry pattern.</p>
 <h4 id="using-cicruit-breaker-with-polly">Using Cicruit-breaker with Polly.<a class="anchorjs-link" href="#using-cicruit-breaker-with-polly"></a></h4><p>There is built-in implementation of circuit-breaker in SDKs of Azure services, but we can achieve it using Polly package, as follows:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">private</span> <span style="color:#ff79c6">static</span> IAsyncPolicy&lt;HttpResponseMessage&gt; GetCircuitBreakerPolicy()
